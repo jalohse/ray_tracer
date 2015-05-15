@@ -6,6 +6,8 @@ public class TransformMatrix {
 
 	Matrix matrix;
 	Matrix inverse;
+	Matrix identity = Matrix
+			.constructWithCopy(Matrix.identity(4, 4).getArray());
 
 	public TransformMatrix(double[] scalars) {
 		double[][] arrayMatrix = new double[4][4];
@@ -22,15 +24,137 @@ public class TransformMatrix {
 		inverse = matrix.inverse();
 	}
 
-	public Vector3D transformAsLocation(double[] point) {
+	/**
+	 * Constructs a transformation matrix to translate by a vector
+	 * 
+	 * @param translation
+	 */
+	public TransformMatrix(Vector3D translation) {
+		identity.set(0, 3, translation.getX());
+		identity.set(1, 3, translation.getY());
+		identity.set(2, 3, translation.getZ());
+		this.matrix = identity;
+	}
+
+	/**
+	 * Constructs a transformation matrix to scale
+	 * 
+	 * @param scaleX
+	 * @param scaleY
+	 * @param scaleZ
+	 */
+	public TransformMatrix(double scaleX, double scaleY, double scaleZ) {
+		identity.set(0, 0, scaleX);
+		identity.set(1, 1, scaleY);
+		identity.set(2, 2, scaleZ);
+		this.matrix = identity;
+	}
+
+	public TransformMatrix() {
+		// Used to get identity and rotations
+	}
+
+	public Matrix getIdentity() {
+		return Matrix.identity(4, 4);
+	}
+
+	public Matrix rotateXBy(double theta) {
+		double cosine = Math.cos(theta);
+		double sine = Math.sin(theta);
+		identity.set(1, 1, cosine);
+		identity.set(1, 2, sine * -1);
+		identity.set(2, 1, sine);
+		identity.set(2, 2, cosine);
+		return identity;
+	}
+
+	public Matrix rotateYBy(double theta) {
+		double cosine = Math.cos(theta);
+		double sine = Math.sin(theta);
+		identity.set(0, 0, cosine);
+		identity.set(2, 0, sine * -1);
+		identity.set(0, 2, sine);
+		identity.set(2, 2, cosine);
+		return identity;
+	}
+
+	public Matrix rotateZBy(double theta) {
+		double cosine = Math.cos(theta);
+		double sine = Math.sin(theta);
+		identity.set(0, 0, cosine);
+		identity.set(0, 1, sine * -1);
+		identity.set(1, 0, sine);
+		identity.set(1, 1, cosine);
+		return identity;
+	}
+
+	public Vector3D transformMatrixAsLocation(double[] point) {
 		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
 				{ point[1] }, { point[2] }, { 1 } });
 		Matrix result = matrix.times(pointMatrix);
 		double[][] array = result.getArray();
 		double scale = array[3][0];
-		double x = array[0][0];
-		double y = array[1][0];
-		double z = array[2][0];
-		return new Vector3D(x / scale, y / scale, z / scale);
+		return new Vector3D(result.get(0, 0) / scale, result.get(1, 0) / scale,
+				result.get(2, 0) / scale);
+	}
+
+	public Vector3D transformMatrixAsOffset(Vector3D vector) {
+		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
+				{ vector.getY() }, { vector.getZ() }, { 0 } });
+		Matrix result = matrix.times(vectorMatrix);
+		return new Vector3D(result.get(0, 0), result.get(1, 0),
+				result.get(2, 0));
+	}
+
+	public Vector3D transformMatrixAsNormal(Vector3D vector) {
+		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
+				{ vector.getY() }, { vector.getZ() }, { 0 } });
+		Matrix result = inverse.transpose().times(vectorMatrix);
+		return new Vector3D(result.get(0, 0), result.get(1, 0),
+				result.get(2, 0));
+	}
+
+	public Vector3D transformInverseAsLocation(double[] point) {
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix result = inverse.times(pointMatrix);
+		double[][] array = result.getArray();
+		double scale = array[3][0];
+		return new Vector3D(result.get(0, 0) / scale, result.get(1, 0) / scale,
+				result.get(2, 0) / scale);
+	}
+
+	public Vector3D transformInverseAsOffset(Vector3D vector) {
+		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
+				{ vector.getY() }, { vector.getZ() }, { 0 } });
+		Matrix result = inverse.times(vectorMatrix);
+		return new Vector3D(result.get(0, 0), result.get(1, 0),
+				result.get(2, 0));
+	}
+
+	public Vector3D transformInverseAsNormal(Vector3D vector) {
+		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
+				{ vector.getY() }, { vector.getZ() }, { 0 } });
+		Matrix result = matrix.transpose().times(vectorMatrix);
+		return new Vector3D(result.get(0, 0), result.get(1, 0),
+				result.get(2, 0));
+	}
+
+	public Matrix rotateUVWToXYZ(OrthonormalBase uvw) {
+		Vector3D u = uvw.getU();
+		Vector3D v = uvw.getV();
+		Vector3D w = uvw.getW();
+		return new Matrix(new double[][] { { u.getX(), u.getY(), u.getZ(), 0 },
+				{ v.getX(), v.getY(), v.getZ(), 0 },
+				{ w.getX(), w.getY(), w.getZ(), 0 }, { 0, 0, 0, 1 } });
+	}
+
+	public Matrix rotateXYZToUVW(OrthonormalBase uvw) {
+		Vector3D u = uvw.getU();
+		Vector3D v = uvw.getV();
+		Vector3D w = uvw.getW();
+		return new Matrix(new double[][] { { u.getX(), v.getX(), w.getX(), 0 },
+				{ u.getY(), v.getY(), w.getY(), 0 },
+				{ u.getZ(), v.getZ(), w.getZ(), 0 }, { 0, 0, 0, 1 } });
 	}
 }

@@ -12,6 +12,12 @@ public class OrthonormalBase {
 		this.b = b;
 	}
 
+	public OrthonormalBase(Vector3D u, Vector3D v, Vector3D w) {
+		this.u = u;
+		this.v = v;
+		this.w = w;
+	}
+
 	public void constructFromUV() {
 		construct(this.u, this.v, this.w);
 	}
