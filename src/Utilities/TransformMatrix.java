@@ -157,4 +157,73 @@ public class TransformMatrix {
 				{ u.getY(), v.getY(), w.getY(), 0 },
 				{ u.getZ(), v.getZ(), w.getZ(), 0 }, { 0, 0, 0, 1 } });
 	}
+
+	public double[] moveXYZPointToNewOrigin(double[] point, double[] newOrigin) {
+		Matrix identity = Matrix.identity(4, 4);
+		identity.set(0, 3, newOrigin[0] * -1);
+		identity.set(1, 3, newOrigin[1] * -1);
+		identity.set(2, 3, newOrigin[2] * -1);
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix newPoint = identity.times(pointMatrix);
+		return new double[] { newPoint.get(0, 0), newPoint.get(1, 0),
+				newPoint.get(2, 0) };
+	}
+
+	public double[] moveXYZPointBackToOriginalOrigin(double[] point,
+			double[] newOrigin) {
+		Matrix identity = Matrix.identity(4, 4);
+		identity.set(0, 3, newOrigin[0]);
+		identity.set(1, 3, newOrigin[1]);
+		identity.set(2, 3, newOrigin[2]);
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix newPoint = identity.times(pointMatrix);
+		return new double[] { newPoint.get(0, 0), newPoint.get(1, 0),
+				newPoint.get(2, 0) };
+	}
+
+	public double[] getXYZinUVWCoordinate(OrthonormalBase uvw, double[] point) {
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix newPoint = rotateXYZToUVW(uvw).times(pointMatrix);
+		return new double[] { newPoint.get(0, 0), newPoint.get(1, 0),
+				newPoint.get(2, 0) };
+	}
+
+	public double[] getUVWinXYZCoordinate(OrthonormalBase uvw, double[] point) {
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix newPoint = rotateUVWToXYZ(uvw).times(pointMatrix);
+		return new double[] { newPoint.get(0, 0), newPoint.get(1, 0),
+				newPoint.get(2, 0) };
+	}
+
+	public double[] moveUVWToNewOrigin(OrthonormalBase uvw, double[] point,
+			double[] newOrigin) {
+		Matrix identity = Matrix.identity(4, 4);
+		identity.set(0, 3, newOrigin[0]);
+		identity.set(1, 3, newOrigin[1]);
+		identity.set(2, 3, newOrigin[2]);
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix xyz = rotateXYZToUVW(uvw).times(pointMatrix);
+		Matrix newPoint = identity.times(xyz);
+		return new double[] { newPoint.get(0, 0), newPoint.get(1, 0),
+				newPoint.get(2, 0) };
+	}
+
+	public double[] moveUVWBackToOrigin(OrthonormalBase uvw, double[] point,
+			double[] newOrigin) {
+		Matrix identity = Matrix.identity(4, 4);
+		identity.set(0, 3, newOrigin[0] * -1);
+		identity.set(1, 3, newOrigin[1] * -1);
+		identity.set(2, 3, newOrigin[2] * -1);
+		Matrix pointMatrix = new Matrix(new double[][] { { point[0] },
+				{ point[1] }, { point[2] }, { 1 } });
+		Matrix newPoint = rotateUVWToXYZ(uvw)
+				.times(identity.times(pointMatrix));
+		return new double[] { newPoint.get(0, 0), newPoint.get(1, 0),
+				newPoint.get(2, 0) };
+	}
 }
