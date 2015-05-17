@@ -36,9 +36,13 @@ public class Interval {
 	}
 
 	public Interval getOverlap(Interval otherInterval) {
-		double maxA = Math.max(getA(), otherInterval.getA());
-		double minB = Math.min(getB(), otherInterval.getB());
-		return new Interval(maxA, minB);
+		if (this.doScalarsOverlap(otherInterval)) {
+			double maxA = Math.max(getA(), otherInterval.getA());
+			double minB = Math.min(getB(), otherInterval.getB());
+			return new Interval(maxA, minB);
+		} else {
+			return new Interval(0, 0);
+		}
 	}
 
 }

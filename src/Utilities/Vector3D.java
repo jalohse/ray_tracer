@@ -1,5 +1,6 @@
 package Utilities;
-public class Vector3D implements Vector{
+
+public class Vector3D implements Vector {
 
 	double[] vector;
 
@@ -39,7 +40,7 @@ public class Vector3D implements Vector{
 	}
 
 	public double getLengthSquared() {
-		return Math.pow(getX(), 2) + Math.pow(getY(), 2) + Math.pow(getZ(), 2);
+		return Math.pow(getLength(), 2);
 	}
 
 	public void makePositive() {
@@ -100,11 +101,11 @@ public class Vector3D implements Vector{
 	}
 
 	// Resulting vector is perpendicular to both vectors, can be used to find
-	// sine of angle
+	// sine of angle between vectors
 	public Vector3D getCrossProduct(Vector3D b) {
-		double x = getX() * b.getX();
-		double y = getY() * b.getY();
-		double z = getZ() * b.getZ();
+		double x = getY() * b.getZ() - getZ() * b.getY();
+		double y = getZ() * b.getX() - getX() * b.getZ();
+		double z = getX() * b.getY() - getY() * b.getX();
 		return new Vector3D(x, y, z);
 	}
 

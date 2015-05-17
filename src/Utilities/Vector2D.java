@@ -29,7 +29,7 @@ public class Vector2D implements Vector{
 	}
 
 	public double getLengthSquared() {
-		return Math.pow(getX(), 2) + Math.pow(getY(), 2);
+		return Math.pow(getLength(), 2);
 	}
 
 	public void makePositive() {
