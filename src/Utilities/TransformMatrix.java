@@ -212,7 +212,6 @@ public class TransformMatrix {
 
 	public double[] moveUVWBackToOrigin(OrthonormalBasis uvw, double[] point,
 			double[] newOrigin) {
-		Matrix identity = Matrix.identity(4, 4);
 		identity.set(0, 3, newOrigin[0] * -1);
 		identity.set(1, 3, newOrigin[1] * -1);
 		identity.set(2, 3, newOrigin[2] * -1);
