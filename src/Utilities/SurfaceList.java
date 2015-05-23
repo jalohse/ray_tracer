@@ -7,6 +7,7 @@ public class SurfaceList implements Surface {
 
 	List<Surface> surfaces;
 	double t;
+	Surface prim;
 
 	public SurfaceList() {
 		surfaces = new ArrayList<>();
@@ -17,15 +18,20 @@ public class SurfaceList implements Surface {
 	}
 
 	@Override
-	public boolean hit(Ray ray, double tSubZero, double tSub1, Surface prim) {
+	public boolean hit(Ray ray, double tSubZero, double tSub1) {
 		boolean hitOne = false;
 		t = tSub1;
 		for (Surface surface : surfaces) {
-			if (surface.hit(ray, tSubZero, tSub1, prim)) {
+			if (surface.hit(ray, tSubZero, tSub1)) {
+				prim = surface;
 				hitOne = true;
 			}
 		}
 		return hitOne;
+	}
+
+	public Surface getPrim() {
+		return prim;
 	}
 
 }

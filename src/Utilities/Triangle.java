@@ -36,7 +36,7 @@ public class Triangle implements Surface {
 	}
 
 	@Override
-	public boolean hit(Ray ray, double tSubZero, double tSub1, Surface prim) {
+	public boolean hit(Ray ray, double tSubZero, double tSub1) {
 		this.d = ((Vector3D) ray.distanceVector);
 		this.origin = ray.origin;
 		Matrix matrixA = createMatrixA();
@@ -45,7 +45,6 @@ public class Triangle implements Surface {
 		double rho = getRho(determinantA);
 		if (beta > 0 && rho > 0 && beta + rho < 1) {
 			setT(determinantA);
-			prim = this;
 			return true;
 		}
 		return false;

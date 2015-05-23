@@ -14,7 +14,7 @@ public class Sphere implements Surface {
 	}
 
 	@Override
-	public boolean hit(Ray ray, double tSubZero, double tSubOne, Surface prim) {
+	public boolean hit(Ray ray, double tSubZero, double tSubOne) {
 		Vector3D d = ((Vector3D) ray.distanceVector);
 		float[] origin = ray.origin;
 		Vector3D originCenter = new Vector3D(origin[0] - this.origin[0],
@@ -28,13 +28,11 @@ public class Sphere implements Surface {
 			double sqrtd = Math.sqrt(discriminant);
 			float tVal = (float) ((-b - sqrtd) / (2 * a));
 			if (tVal > tSubZero && tVal < tSubOne) {
-				prim = this;
 				t = tVal;
 				return true;
 			}
 			tVal = (float) ((-b + sqrtd) / (2 * a));
 			if (tVal > tSubZero && tVal < tSubOne) {
-				prim = this;
 				t = tVal;
 				return true;
 			}
