@@ -45,6 +45,7 @@ public class Triangle implements Surface {
 		double rho = getRho(determinantA);
 		if (beta > 0 && rho > 0 && beta + rho < 1) {
 			setT(determinantA);
+			prim = this;
 			return true;
 		}
 		return false;
