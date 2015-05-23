@@ -2,7 +2,7 @@ package utilities;
 
 public class Vector3D implements Vector {
 
-	float[] vector;
+	float[] vector = new float[3];
 
 	public Vector3D(float x, float y, float z) {
 		vector[0] = x;

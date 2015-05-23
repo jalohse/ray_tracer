@@ -1,7 +1,10 @@
 package utilities;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Image {
 
@@ -15,22 +18,25 @@ public class Image {
 		this.image = new RGB[rows][columns];
 	}
 
-	public void populateImage(ArrayList<RGB> pixels) {
+	public void populateImage(RGB[][] pixels) {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
-				image[i][j] = pixels.get(i + j);
+				image[i][j] = pixels[i][j];
 			}
 		}
 	}
-	
-	public void printImage() throws FileNotFoundException{
-		PrintWriter writer = new PrintWriter("image.txt");
-		for(int i = 0; i < rows; i++){
-			for(int j = 0; j < columns; j++){
-				writer.write(image[i][j].toString());
+
+	public void printImage() throws IOException {
+		BufferedImage img = new BufferedImage(rows, columns, BufferedImage.TYPE_INT_RGB);
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				RGB rgb = image[i][j];
+				int color = (rgb.red << 16) | (rgb.green << 8) | rgb.blue;
+				img.setRGB(i, j, color);
 			}
 		}
-		writer.close();
+		File file = new File("image.png");
+		ImageIO.write(img, "PNG", file);
 	}
 
 }

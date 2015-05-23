@@ -1,7 +1,6 @@
 package images;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 
 import utilities.Image;
 import utilities.RGB;
@@ -28,20 +27,19 @@ public class Chapter2Image {
 		RGB lightGray = new RGB(215, 215, 215);
 		RGB darkGray = new RGB(112, 112, 112);
 		RGB black = new RGB(0, 0, 0);
-		ArrayList<RGB> pixels = new ArrayList<>();
+		RGB[][] pixels = new RGB[rowsColumns][rowsColumns];
 		for (int i = 0; i < rowsColumns; i++) {
 			for (int j = 0; j < rowsColumns; j++) {
 				float[] origin = new float[] { i, j, 0 };
 				Ray ray = new Ray(origin, new Vector3D(0, 0, -1));
 				if (list.hit(ray, 0, 1000000)) {
 					Surface hitSurface = list.getPrim();
-					int index = i + j;
 					if (hitSurface instanceof Sphere) {
-						pixels.add(index, lightGray);
+						pixels[i][j] = lightGray;
 					} else if (hitSurface instanceof Triangle) {
-						pixels.add(index, darkGray);
+						pixels[i][j] = darkGray;
 					} else {
-						pixels.add(index, black);
+						pixels[i][j] = black;
 					}
 				}
 			}
@@ -49,7 +47,7 @@ public class Chapter2Image {
 		image.populateImage(pixels);
 		try {
 			image.printImage();
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
