@@ -1,14 +1,14 @@
-package Utilities;
+package utilities;
 
 public interface Vector {
 	
-	public double getX();
+	public float getX();
 
-	public double getY();
+	public float getY();
 
-	public void setX(double x);
+	public void setX(float x);
 
-	public void setY(double y);
+	public void setY(float y);
 
 	public double getLength();
 

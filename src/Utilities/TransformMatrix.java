@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 import Jama.Matrix;
 
@@ -94,24 +94,30 @@ public class TransformMatrix {
 		Matrix result = matrix.times(pointMatrix);
 		double[][] array = result.getArray();
 		double scale = array[3][0];
-		return new Vector3D(result.get(0, 0) / scale, result.get(1, 0) / scale,
-				result.get(2, 0) / scale);
+		float x = (float) (result.get(0, 0) / scale);
+		float y = (float) (result.get(1, 0) / scale);
+		float z = (float) (result.get(2, 0) / scale);
+		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D transformMatrixAsOffset(Vector3D vector) {
 		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
 				{ vector.getY() }, { vector.getZ() }, { 0 } });
 		Matrix result = matrix.times(vectorMatrix);
-		return new Vector3D(result.get(0, 0), result.get(1, 0),
-				result.get(2, 0));
+		float x = (float) result.get(0, 0);
+		float y = (float) result.get(1, 0);
+		float z = (float) result.get(2, 0);
+		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D transformMatrixAsNormal(Vector3D vector) {
 		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
 				{ vector.getY() }, { vector.getZ() }, { 0 } });
 		Matrix result = inverse.transpose().times(vectorMatrix);
-		return new Vector3D(result.get(0, 0), result.get(1, 0),
-				result.get(2, 0));
+		float x = (float) result.get(0, 0);
+		float y = (float) result.get(1, 0);
+		float z = (float) result.get(2, 0);
+		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D transformInverseAsLocation(double[] point) {
@@ -120,24 +126,30 @@ public class TransformMatrix {
 		Matrix result = inverse.times(pointMatrix);
 		double[][] array = result.getArray();
 		double scale = array[3][0];
-		return new Vector3D(result.get(0, 0) / scale, result.get(1, 0) / scale,
-				result.get(2, 0) / scale);
+		float x = (float) (result.get(0, 0) / scale);
+		float y = (float) (result.get(1, 0) / scale);
+		float z = (float) (result.get(2, 0) / scale);
+		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D transformInverseAsOffset(Vector3D vector) {
 		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
 				{ vector.getY() }, { vector.getZ() }, { 0 } });
 		Matrix result = inverse.times(vectorMatrix);
-		return new Vector3D(result.get(0, 0), result.get(1, 0),
-				result.get(2, 0));
+		float x = (float) result.get(0, 0);
+		float y = (float) result.get(1, 0);
+		float z = (float) result.get(2, 0);
+		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D transformInverseAsNormal(Vector3D vector) {
 		Matrix vectorMatrix = new Matrix(new double[][] { { vector.getX() },
 				{ vector.getY() }, { vector.getZ() }, { 0 } });
 		Matrix result = matrix.transpose().times(vectorMatrix);
-		return new Vector3D(result.get(0, 0), result.get(1, 0),
-				result.get(2, 0));
+		float x = (float) result.get(0, 0);
+		float y = (float) result.get(1, 0);
+		float z = (float) result.get(2, 0);
+		return new Vector3D(x, y, z);
 	}
 
 	public Matrix rotateUVWToXYZ(OrthonormalBasis uvw) {

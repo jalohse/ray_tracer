@@ -1,36 +1,36 @@
-package Utilities;
+package utilities;
 
 public class Vector3D implements Vector {
 
-	double[] vector;
+	float[] vector;
 
-	public Vector3D(double x, double y, double z) {
+	public Vector3D(float x, float y, float z) {
 		vector[0] = x;
 		vector[1] = y;
 		vector[2] = z;
 	}
 
-	public double getX() {
+	public float getX() {
 		return vector[0];
 	}
 
-	public double getY() {
+	public float getY() {
 		return vector[1];
 	}
 
-	public double getZ() {
+	public float getZ() {
 		return vector[2];
 	}
 
-	public void setX(double x) {
+	public void setX(float x) {
 		vector[0] = x;
 	}
 
-	public void setY(double y) {
+	public void setY(float y) {
 		vector[1] = y;
 	}
 
-	public void setZ(double z) {
+	public void setZ(float z) {
 		vector[2] = z;
 	}
 
@@ -56,56 +56,56 @@ public class Vector3D implements Vector {
 	}
 
 	public void scaleUp(double scale) {
-		this.setX(getX() * scale);
-		this.setY(getY() * scale);
-		this.setZ(getZ() * scale);
+		this.setX((float) (getX() * scale));
+		this.setY((float) (getY() * scale));
+		this.setZ((float) (getZ() * scale));
 	}
 
 	public void scaleDown(double scale) {
-		this.setX(getX() / scale);
-		this.setY(getY() / scale);
-		this.setZ(getZ() / scale);
+		this.setX((float) (getX() / scale));
+		this.setY((float) (getY() / scale));
+		this.setZ((float) (getZ() / scale));
 	}
 
 	public Vector3D add(Vector3D b) {
-		double x = getX() + b.getX();
-		double y = getY() + b.getY();
-		double z = getZ() + b.getZ();
+		float x = getX() + b.getX();
+		float y = getY() + b.getY();
+		float z = getZ() + b.getZ();
 		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D subtract(Vector3D b) {
-		double x = getX() - b.getX();
-		double y = getY() - b.getY();
-		double z = getZ() - b.getZ();
+		float x = getX() - b.getX();
+		float y = getY() - b.getY();
+		float z = getZ() - b.getZ();
 		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D multiply(Vector3D b) {
-		double x = getX() * b.getX();
-		double y = getY() * b.getY();
-		double z = getZ() * b.getZ();
+		float x = getX() * b.getX();
+		float y = getY() * b.getY();
+		float z = getZ() * b.getZ();
 		return new Vector3D(x, y, z);
 	}
 
 	public Vector3D divide(Vector3D b) {
-		double x = getX() / b.getX();
-		double y = getY() / b.getY();
-		double z = getZ() / b.getZ();
+		float x = getX() / b.getX();
+		float y = getY() / b.getY();
+		float z = getZ() / b.getZ();
 		return new Vector3D(x, y, z);
 	}
 
 	// Used to compute cosine of angle between two vectors
-	public double getDotProduct(Vector3D b) {
+	public float getDotProduct(Vector3D b) {
 		return getX() * b.getX() + getY() * b.getY() + getZ() + b.getZ();
 	}
 
 	// Resulting vector is perpendicular to both vectors, can be used to find
 	// sine of angle between vectors
 	public Vector3D getCrossProduct(Vector3D b) {
-		double x = getY() * b.getZ() - getZ() * b.getY();
-		double y = getZ() * b.getX() - getX() * b.getZ();
-		double z = getX() * b.getY() - getY() * b.getX();
+		float x = getY() * b.getZ() - getZ() * b.getY();
+		float y = getZ() * b.getX() - getX() * b.getZ();
+		float z = getX() * b.getY() - getY() * b.getX();
 		return new Vector3D(x, y, z);
 	}
 

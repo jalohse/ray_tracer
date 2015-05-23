@@ -1,26 +1,26 @@
-package Utilities;
+package utilities;
 public class Vector2D implements Vector{
 
-	double[] vector;
+	float[] vector;
 
-	public Vector2D(double x, double y) {
+	public Vector2D(float x, float y) {
 		vector[0] = x;
 		vector[1] = y;
 	}
 
-	public double getX() {
+	public float getX() {
 		return vector[0];
 	}
 
-	public double getY() {
+	public float getY() {
 		return vector[1];
 	}
 
-	public void setX(double x) {
+	public void setX(float x) {
 		vector[0] = x;
 	}
 
-	public void setY(double y) {
+	public void setY(float y) {
 		vector[1] = y;
 	}
 
@@ -43,36 +43,36 @@ public class Vector2D implements Vector{
 	}
 
 	public void scaleUp(double scale) {
-		this.setX(getX() * scale);
-		this.setY(getY() * scale);
+		this.setX((float) (getX() * scale));
+		this.setY((float) (getY() * scale));
 	}
 
 	public void scaleDown(double scale) {
-		this.setX(getX() / scale);
-		this.setY(getY() / scale);
+		this.setX((float) (getX() / scale));
+		this.setY((float) (getY() / scale));
 	}
 
 	public Vector2D add(Vector2D b) {
-		double x = getX() + b.getX();
-		double y = getY() + b.getY();
+		float x = getX() + b.getX();
+		float y = getY() + b.getY();
 		return new Vector2D(x, y);
 	}
 
 	public Vector2D subtract(Vector2D b) {
-		double x = getX() - b.getX();
-		double y = getY() - b.getY();
+		float x = getX() - b.getX();
+		float y = getY() - b.getY();
 		return new Vector2D(x, y);
 	}
 
 	public Vector2D multiply(Vector2D b) {
-		double x = getX() * b.getX();
-		double y = getY() * b.getY();
+		float x = getX() * b.getX();
+		float y = getY() * b.getY();
 		return new Vector2D(x, y);
 	}
 
 	public Vector2D divide(Vector2D b) {
-		double x = getX() / b.getX();
-		double y = getY() / b.getY();
+		float x = getX() / b.getX();
+		float y = getY() / b.getY();
 		return new Vector2D(x, y);
 	}
 

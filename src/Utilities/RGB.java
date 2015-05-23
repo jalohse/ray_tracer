@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 public class RGB {
 
 	public static final int MAX_BYTE = 255;
