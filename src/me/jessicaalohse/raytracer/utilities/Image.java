@@ -1,4 +1,4 @@
-package utilities;
+package me.jessicaalohse.raytracer.utilities;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

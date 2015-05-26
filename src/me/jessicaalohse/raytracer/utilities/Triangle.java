@@ -1,4 +1,4 @@
-package utilities;
+package me.jessicaalohse.raytracer.utilities;
 
 import Jama.Matrix;
 

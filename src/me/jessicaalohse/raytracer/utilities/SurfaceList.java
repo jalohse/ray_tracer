@@ -1,4 +1,4 @@
-package utilities;
+package me.jessicaalohse.raytracer.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
