@@ -1,15 +1,15 @@
-package images;
+package me.jessicaalohse.raytracer.images;
 
 import java.io.IOException;
 
-import utilities.Image;
-import utilities.RGB;
-import utilities.Ray;
-import utilities.Sphere;
-import utilities.Surface;
-import utilities.SurfaceList;
-import utilities.Triangle;
-import utilities.Vector3D;
+import me.jessicaalohse.raytracer.utilities.Image;
+import me.jessicaalohse.raytracer.utilities.RGB;
+import me.jessicaalohse.raytracer.utilities.Ray;
+import me.jessicaalohse.raytracer.utilities.Sphere;
+import me.jessicaalohse.raytracer.utilities.Surface;
+import me.jessicaalohse.raytracer.utilities.SurfaceList;
+import me.jessicaalohse.raytracer.utilities.Triangle;
+import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class Chapter2Image {
 

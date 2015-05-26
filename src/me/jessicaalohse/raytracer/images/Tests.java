@@ -1,4 +1,4 @@
-package images;
+package me.jessicaalohse.raytracer.images;
 
 public class Tests {
 
