@@ -4,7 +4,7 @@ public class Sphere implements Surface {
 
 	float[] origin = new float[3];
 	float radius;
-	float t;
+	double t;
 
 	public Sphere(float x, float y, float z, float radius) {
 		this.origin[0] = x;
@@ -24,7 +24,7 @@ public class Sphere implements Surface {
 		float c = (float) (originCenter.getDotProduct(originCenter) - Math.pow(
 				radius, 2));
 		float discriminant = b * b - 4 * a * c;
-		if (discriminant >= Math.E) {
+		if (discriminant >= Math.ulp(discriminant)) {
 			double sqrtd = Math.sqrt(discriminant);
 			float tVal = (float) ((-b - sqrtd) / (2 * a));
 			if (tVal > tSubZero && tVal < tSubOne) {
@@ -38,6 +38,10 @@ public class Sphere implements Surface {
 			}
 		}
 		return false;
+	}
+	
+	public double getT() {
+		return t;
 	}
 
 }

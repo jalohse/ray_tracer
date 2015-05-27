@@ -32,7 +32,7 @@ public class Chapter2Image {
 			for (int j = 0; j < rowsColumns; j++) {
 				float[] origin = new float[] { i, j, 0 };
 				Ray ray = new Ray(origin, new Vector3D(0, 0, -1));
-				if (list.hit(ray, 0, 1000000)) {
+				if (list.hit(ray, 0, Integer.MAX_VALUE)) {
 					Surface hitSurface = list.getPrim();
 					if (hitSurface instanceof Sphere) {
 						pixels[i][j] = lightGray;
@@ -41,12 +41,15 @@ public class Chapter2Image {
 					} else {
 						pixels[i][j] = black;
 					}
+				} else {
+					pixels[i][j] = black;
 				}
 			}
 		}
 		image.populateImage(pixels);
 		try {
 			image.printImage();
+			System.out.println("Created image.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

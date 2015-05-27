@@ -21,9 +21,11 @@ public class SurfaceList implements Surface {
 	public boolean hit(Ray ray, double tSubZero, double tSub1) {
 		boolean hitOne = false;
 		t = tSub1;
+		prim = null;
 		for (Surface surface : surfaces) {
-			if (surface.hit(ray, tSubZero, tSub1)) {
+			if (surface.hit(ray, tSubZero, t)) {
 				prim = surface;
+				t = surface.getT();
 				hitOne = true;
 			}
 		}
@@ -32,6 +34,11 @@ public class SurfaceList implements Surface {
 
 	public Surface getPrim() {
 		return prim;
+	}
+
+	@Override
+	public double getT() {
+		return t;
 	}
 
 }

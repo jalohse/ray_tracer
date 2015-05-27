@@ -1,4 +1,7 @@
 package me.jessicaalohse.raytracer.utilities;
+
+import java.util.Arrays;
+
 public class Ray {
 
 	float[] origin;
@@ -20,6 +23,12 @@ public class Ray {
 			float z = origin[2] + vector.getZ();
 			return new float[] {x, y, z};
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Ray [origin=" + Arrays.toString(origin) + ", distanceVector="
+				+ distanceVector + "]";
 	}
 
 }

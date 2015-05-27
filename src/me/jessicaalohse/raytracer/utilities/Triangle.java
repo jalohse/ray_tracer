@@ -43,8 +43,9 @@ public class Triangle implements Surface {
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);
 		double rho = getRho(determinantA);
-		if (beta > 0 && rho > 0 && beta + rho < 1) {
-			setT(determinantA);
+		setT(determinantA);
+		if (beta > 0 && rho > 0 && beta + rho < 1
+				&& t < tSub1 && t > tSubZero) {
 			return true;
 		}
 		return false;
@@ -91,5 +92,10 @@ public class Triangle implements Surface {
 				{ aX - bX, aX - cX, aX - origin[0] },
 				{ aY - bY, aY - cY, aY - origin[1] },
 				{ aZ - bZ, aZ - cZ, aZ - origin[2] } });
+	}
+
+	@Override
+	public double getT() {
+		return t;
 	}
 }
