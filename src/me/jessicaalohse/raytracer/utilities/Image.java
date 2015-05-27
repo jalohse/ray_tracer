@@ -27,6 +27,10 @@ public class Image {
 	}
 
 	public void printImage() throws IOException {
+		printImage("image.png");
+	}
+	
+	public void printImage(String fileName) throws IOException {
 		BufferedImage img = new BufferedImage(rows, columns, BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
@@ -35,7 +39,7 @@ public class Image {
 				img.setRGB(i, j, color);
 			}
 		}
-		File file = new File("image.png");
+		File file = new File(fileName);
 		ImageIO.write(img, "PNG", file);
 	}
 
