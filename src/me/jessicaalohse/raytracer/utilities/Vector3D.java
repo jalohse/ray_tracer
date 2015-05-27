@@ -97,7 +97,7 @@ public class Vector3D implements Vector {
 
 	// Used to compute cosine of angle between two vectors
 	public float getDotProduct(Vector3D b) {
-		return getX() * b.getX() + getY() * b.getY() + getZ() + b.getZ();
+		return getX() * b.getX() + getY() * b.getY() + getZ() * b.getZ();
 	}
 
 	// Resulting vector is perpendicular to both vectors, can be used to find

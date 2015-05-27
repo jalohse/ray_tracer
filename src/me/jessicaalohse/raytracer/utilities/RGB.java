@@ -75,7 +75,7 @@ public class RGB {
 		return new RGB(red, green, blue);
 	}
 
-	public int colorToByte(int color) {
+	private int colorToByte(int color) {
 		int i = (int) (BYTE_MULTIPLICATION * Math.pow(color, 1 / MAC_GAMMA));
 		if (i > MAX_BYTE) {
 			return MAX_BYTE;
