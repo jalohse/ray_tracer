@@ -8,24 +8,21 @@ import me.jessicaalohse.raytracer.utilities.Ray;
 import me.jessicaalohse.raytracer.utilities.Sphere;
 import me.jessicaalohse.raytracer.utilities.Surface;
 import me.jessicaalohse.raytracer.utilities.SurfaceList;
-import me.jessicaalohse.raytracer.utilities.Triangle;
 import me.jessicaalohse.raytracer.utilities.Vector3D;
 
-public class Chapter2Image {
-
-	int rowsColumns = 101;
-
-	public Chapter2Image() {
+public class Chapter3Image {
+	
+	public Chapter3Image() {
+		
+		int rowsColumns = 101;
+		
 		Image image = new Image(rowsColumns, rowsColumns);
-		Sphere sphere = new Sphere(0, 0, -150, 100.1f);
-		Triangle triangle = new Triangle(new double[] { 0, 0, -100 },
-				new double[] { 100.1, 0, -100 },
-				new double[] { 50, 100.1, -100 });
+		Sphere largeSphere = new Sphere(50, -80, -1000, 100);
+		Sphere smallSphere = new Sphere(50, 50, -1000, 30);
 		SurfaceList list = new SurfaceList();
-		list.add(sphere);
-		list.add(triangle);
+		list.add(largeSphere);
+		list.add(smallSphere);
 		RGB lightGray = new RGB(215, 215, 215);
-		RGB darkGray = new RGB(112, 112, 112);
 		RGB black = new RGB(0, 0, 0);
 		RGB[][] pixels = new RGB[rowsColumns][rowsColumns];
 		for (int i = 0; i < rowsColumns; i++) {
@@ -36,8 +33,6 @@ public class Chapter2Image {
 					Surface hitSurface = list.getPrim();
 					if (hitSurface instanceof Sphere) {
 						pixels[i][j] = lightGray;
-					} else if (hitSurface instanceof Triangle) {
-						pixels[i][j] = darkGray;
 					} else {
 						pixels[i][j] = black;
 					}
@@ -48,11 +43,10 @@ public class Chapter2Image {
 		}
 		image.populateImage(pixels);
 		try {
-			image.printImage("Chapter2Image");
-			System.out.println("Created image.png");
+			image.printImage("Chapter3Image");
+			System.out.println("Created Chapter3Image.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }
