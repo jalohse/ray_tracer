@@ -11,17 +11,19 @@ import me.jessicaalohse.raytracer.utilities.SurfaceList;
 import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class Chapter3Image {
-	
+
 	public Chapter3Image() {
-		
+
 		int rowsColumns = 101;
-		
+
 		Image image = new Image(rowsColumns, rowsColumns);
 		Sphere largeSphere = new Sphere(50, -80, -1000, 100);
 		Sphere smallSphere = new Sphere(50, 50, -1000, 30);
 		SurfaceList list = new SurfaceList();
 		list.add(largeSphere);
 		list.add(smallSphere);
+		Vector3D lightVector = new Vector3D(0, 1, 0);
+		RGB lightColor = new RGB(255, 255, 255);
 		RGB lightGray = new RGB(215, 215, 215);
 		RGB black = new RGB(0, 0, 0);
 		RGB[][] pixels = new RGB[rowsColumns][rowsColumns];
@@ -32,7 +34,10 @@ public class Chapter3Image {
 				if (list.hit(ray, 0, Integer.MAX_VALUE)) {
 					Surface hitSurface = list.getPrim();
 					if (hitSurface instanceof Sphere) {
-						pixels[i][j] = lightGray;
+						RGB multipliedLight = lightColor.multiply(lightGray);
+						RGB color = ((Sphere) hitSurface).getLitColor(
+								multipliedLight, origin, lightVector);
+						pixels[i][j] = color;
 					} else {
 						pixels[i][j] = black;
 					}

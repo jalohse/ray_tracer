@@ -13,6 +13,21 @@ public class Sphere implements Surface {
 		this.radius = radius;
 	}
 
+	public Vector3D getNormalForPoint(Vector3D point) {
+		return new Vector3D((point.getX() - this.origin[0]) / this.radius,
+				(point.getY() - this.origin[1]) / this.radius,
+				(point.getZ() - this.origin[2]) / this.radius);
+	}
+
+	public RGB getLitColor(RGB lightMultiplied, float[] point,
+			Vector3D lightVector) {
+		Vector3D vectorPoint = new Vector3D(point[0], point[1], point[2]);
+		Vector3D normal = getNormalForPoint(vectorPoint);
+		float nDotL = normal.getDotProduct(lightVector);
+		lightMultiplied.scaleUp(nDotL);
+		return lightMultiplied;
+	}
+
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSubOne) {
 		Vector3D d = ((Vector3D) ray.distanceVector);
@@ -39,7 +54,7 @@ public class Sphere implements Surface {
 		}
 		return false;
 	}
-	
+
 	public double getT() {
 		return t;
 	}

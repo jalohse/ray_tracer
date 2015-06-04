@@ -35,6 +35,14 @@ public class Triangle implements Surface {
 		this.cZ = this.c[2];
 	}
 
+	public Vector3D getNormal() {
+		Vector3D p1Minusp0 = new Vector3D((float) (this.aX - this.cX),
+				(float) (this.aY - this.cY), (float) (this.aZ - this.cZ));
+		Vector3D p2Minusp0 = new Vector3D((float) (this.bX - this.cX),
+				(float) (this.bY - this.cY), (float) (this.bZ - this.cZ));
+		return p1Minusp0.multiply(p2Minusp0);
+	}
+
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSub1) {
 		this.d = ((Vector3D) ray.distanceVector);
@@ -44,8 +52,7 @@ public class Triangle implements Surface {
 		double beta = getBeta(determinantA);
 		double rho = getRho(determinantA);
 		setT(determinantA);
-		if (beta > 0 && rho > 0 && beta + rho < 1
-				&& t < tSub1 && t > tSubZero) {
+		if (beta > 0 && rho > 0 && beta + rho < 1 && t < tSub1 && t > tSubZero) {
 			return true;
 		}
 		return false;

@@ -49,7 +49,7 @@ public class Chapter2Image {
 		image.populateImage(pixels);
 		try {
 			image.printImage("Chapter2Image");
-			System.out.println("Created image.png");
+			System.out.println("Created Chapter2Image.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
