@@ -12,8 +12,8 @@ public class Ray {
 		this.distanceVector = vector;
 	}
 
-	public float[] pointAtParameter(int scalar) {
-		distanceVector.scaleUp(scalar);
+	public float[] pointAtParameter(double t) {
+		distanceVector.scaleUp(t);
 		float x = origin[0] + distanceVector.getX();
 		float y = origin[1] + distanceVector.getY();
 		if (distanceVector instanceof Vector2D) {

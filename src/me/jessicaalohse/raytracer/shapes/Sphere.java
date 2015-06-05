@@ -25,11 +25,15 @@ public class Sphere implements Surface {
 				(point.getZ() - this.origin[2]) / this.radius);
 	}
 
-	public RGB getLitColor(RGB lightMultiplied, float[] point,
-			Vector3D lightVector) {
+	public float getNDotL(float[] point, Vector3D lightVector) {
 		Vector3D vectorPoint = new Vector3D(point[0], point[1], point[2]);
 		Vector3D normal = getNormalForPoint(vectorPoint);
-		float nDotL = normal.getDotProduct(lightVector);
+		return normal.getDotProduct(lightVector);
+	}
+
+	public RGB getLitColor(RGB lightMultiplied, float[] point,
+			Vector3D lightVector) {
+		float nDotL = getNDotL(point, lightVector);
 		lightMultiplied.scaleUp(nDotL);
 		return lightMultiplied;
 	}

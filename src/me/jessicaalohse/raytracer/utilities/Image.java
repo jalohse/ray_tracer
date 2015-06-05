@@ -41,7 +41,7 @@ public class Image {
 				float[] origin = new float[] { i, j, 0 };
 				Ray ray = new Ray(origin, new Vector3D(0, 0, -1));
 				if (this.surfaces.hit(ray, 0, Integer.MAX_VALUE)) {
-					pixels[i][j] = getHitColor(origin);
+					pixels[i][j] = getHitColor(ray);
 				} else {
 					pixels[i][j] = black;
 				}
@@ -50,21 +50,36 @@ public class Image {
 		populateImage(pixels);
 	}
 
-	public RGB getHitColor(float[] origin) {
+	public RGB getHitColor(Ray ray) {
 		Surface hitSurface = this.surfaces.getPrim();
 		if (light != null) {
-			RGB multipliedLight = light.getColor().multiply(
-					hitSurface.getColor());
-			if (hitSurface instanceof Sphere) {
-				return ((Sphere) hitSurface).getLitColor(multipliedLight,
-						origin, light.getLightVector());
+			if (!isHitByShadowRay(ray, hitSurface)) {
+				RGB multipliedLight = light.getColor().multiply(
+						hitSurface.getColor());
+				if (hitSurface instanceof Sphere) {
+					Sphere sphere = (Sphere) hitSurface;
+					return sphere.getLitColor(multipliedLight, ray.getOrigin(),
+							light.getLightVector());
+				} else {
+					return ((Triangle) hitSurface).getLitColor(multipliedLight,
+							light.getLightVector());
+				}
 			} else {
-				return ((Triangle) hitSurface).getLitColor(multipliedLight,
-						light.getLightVector());
+				return new RGB(0, 0, 0);
 			}
 		} else {
 			return hitSurface.getColor();
 		}
+	}
+
+	private boolean isHitByShadowRay(Ray ray, Surface hitSurface) {
+		float[] originOfShadowRay = ray.pointAtParameter(hitSurface.getT());
+		Ray shadowRay = new Ray(originOfShadowRay, light.getLightVector());
+//		if (((Sphere) hitSurface)
+//				.getNDotL(ray.getOrigin(), light.getLightVector()) > 0) {
+//			return false;
+//		}
+		return this.surfaces.hit(shadowRay, 0, Integer.MAX_VALUE);
 	}
 
 	public void populateImage(RGB[][] pixels) {
