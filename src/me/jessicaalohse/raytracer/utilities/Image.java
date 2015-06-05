@@ -6,16 +6,65 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import me.jessicaalohse.raytracer.shapes.Sphere;
+import me.jessicaalohse.raytracer.shapes.Surface;
+import me.jessicaalohse.raytracer.shapes.SurfaceList;
+import me.jessicaalohse.raytracer.shapes.Triangle;
+
 public class Image {
 
 	int rows;
 	int columns;
 	RGB[][] image;
+	private SurfaceList surfaces = new SurfaceList();
+	private Light light;
 
 	public Image(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
 		this.image = new RGB[rows][columns];
+	}
+
+	public void addSurface(Surface surface) {
+		surfaces.add(surface);
+	}
+
+	public void addLight(Light light) {
+		this.light = light;
+	}
+
+	public void createImage() {
+		RGB black = new RGB(0, 0, 0);
+		RGB[][] pixels = new RGB[this.rows][this.columns];
+		for (int i = 0; i < this.rows; i++) {
+			for (int j = 0; j < this.columns; j++) {
+				float[] origin = new float[] { i, j, 0 };
+				Ray ray = new Ray(origin, new Vector3D(0, 0, -1));
+				if (this.surfaces.hit(ray, 0, Integer.MAX_VALUE)) {
+					pixels[i][j] = getHitColor(origin);
+				} else {
+					pixels[i][j] = black;
+				}
+			}
+		}
+		populateImage(pixels);
+	}
+
+	public RGB getHitColor(float[] origin) {
+		Surface hitSurface = this.surfaces.getPrim();
+		if (light != null) {
+			RGB multipliedLight = light.getColor().multiply(
+					hitSurface.getColor());
+			if (hitSurface instanceof Sphere) {
+				return ((Sphere) hitSurface).getLitColor(multipliedLight,
+						origin, light.getLightVector());
+			} else {
+				return ((Triangle) hitSurface).getLitColor(multipliedLight,
+						light.getLightVector());
+			}
+		} else {
+			return hitSurface.getColor();
+		}
 	}
 
 	public void populateImage(RGB[][] pixels) {
@@ -27,7 +76,8 @@ public class Image {
 	}
 
 	public void printImage(String imageName) throws IOException {
-		BufferedImage img = new BufferedImage(rows, columns, BufferedImage.TYPE_INT_RGB);
+		BufferedImage img = new BufferedImage(rows, columns,
+				BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				RGB rgb = image[i][j];
@@ -36,14 +86,14 @@ public class Image {
 			}
 		}
 		File file;
-		if(imageName == null || imageName.isEmpty()){
+		if (imageName == null || imageName.isEmpty()) {
 			file = new File("image.png");
 		} else {
 			file = new File(imageName.concat(".png"));
 		}
 		ImageIO.write(img, "PNG", file);
 	}
-	
+
 	public void printImage() throws IOException {
 		this.printImage("");
 	}

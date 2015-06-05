@@ -9,12 +9,14 @@ public class Sphere implements Surface {
 	float[] origin = new float[3];
 	float radius;
 	double t;
+	RGB color;
 
-	public Sphere(float x, float y, float z, float radius) {
+	public Sphere(float x, float y, float z, float radius, RGB color) {
 		this.origin[0] = x;
 		this.origin[1] = y;
 		this.origin[2] = z;
 		this.radius = radius;
+		this.color = color;
 	}
 
 	public Vector3D getNormalForPoint(Vector3D point) {
@@ -61,6 +63,10 @@ public class Sphere implements Surface {
 
 	public double getT() {
 		return t;
+	}
+
+	public RGB getColor() {
+		return color;
 	}
 
 }

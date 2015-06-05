@@ -3,6 +3,7 @@ package me.jessicaalohse.raytracer.shapes;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Ray;
 
 public class SurfaceList implements Surface {
@@ -41,6 +42,11 @@ public class SurfaceList implements Surface {
 	@Override
 	public double getT() {
 		return t;
+	}
+	
+	@Override
+	public RGB getColor() {
+		return prim.getColor();
 	}
 
 }
