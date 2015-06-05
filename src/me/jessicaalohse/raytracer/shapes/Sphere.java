@@ -1,4 +1,8 @@
-package me.jessicaalohse.raytracer.utilities;
+package me.jessicaalohse.raytracer.shapes;
+
+import me.jessicaalohse.raytracer.utilities.RGB;
+import me.jessicaalohse.raytracer.utilities.Ray;
+import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class Sphere implements Surface {
 
@@ -30,8 +34,8 @@ public class Sphere implements Surface {
 
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSubOne) {
-		Vector3D d = ((Vector3D) ray.distanceVector);
-		float[] origin = ray.origin;
+		Vector3D d = ((Vector3D) ray.getDistanceVector());
+		float[] origin = ray.getOrigin();
 		Vector3D originCenter = new Vector3D(origin[0] - this.origin[0],
 				origin[1] - this.origin[1], origin[2] - this.origin[2]);
 		float a = d.getDotProduct(d);

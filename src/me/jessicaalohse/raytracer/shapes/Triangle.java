@@ -1,5 +1,8 @@
-package me.jessicaalohse.raytracer.utilities;
+package me.jessicaalohse.raytracer.shapes;
 
+import me.jessicaalohse.raytracer.utilities.RGB;
+import me.jessicaalohse.raytracer.utilities.Ray;
+import me.jessicaalohse.raytracer.utilities.Vector3D;
 import Jama.Matrix;
 
 public class Triangle implements Surface {
@@ -43,10 +46,16 @@ public class Triangle implements Surface {
 		return p1Minusp0.multiply(p2Minusp0);
 	}
 
+	public RGB getLitColor(RGB lightMultiplied, Vector3D lightVector) {
+		float nDotL = getNormal().getDotProduct(lightVector);
+		lightMultiplied.scaleUp(nDotL);
+		return lightMultiplied;
+	}
+
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSub1) {
-		this.d = ((Vector3D) ray.distanceVector);
-		this.origin = ray.origin;
+		this.d = ((Vector3D) ray.getDistanceVector());
+		this.origin = ray.getOrigin();
 		Matrix matrixA = createMatrixA();
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);

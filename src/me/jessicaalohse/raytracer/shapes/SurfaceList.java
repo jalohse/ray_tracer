@@ -1,7 +1,9 @@
-package me.jessicaalohse.raytracer.utilities;
+package me.jessicaalohse.raytracer.shapes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.jessicaalohse.raytracer.utilities.Ray;
 
 public class SurfaceList implements Surface {
 

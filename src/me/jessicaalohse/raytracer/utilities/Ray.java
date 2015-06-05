@@ -31,4 +31,12 @@ public class Ray {
 				+ distanceVector + "]";
 	}
 
+	public float[] getOrigin() {
+		return origin;
+	}
+
+	public Vector getDistanceVector() {
+		return distanceVector;
+	}
+
 }
