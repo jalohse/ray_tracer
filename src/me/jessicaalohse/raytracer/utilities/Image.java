@@ -61,7 +61,8 @@ public class Image {
 					return sphere.getLitColor(multipliedLight, ray.getOrigin(),
 							light.getLightVector());
 				} else {
-					return ((Triangle) hitSurface).getLitColor(multipliedLight,
+					Triangle triangle = (Triangle) hitSurface;
+					return triangle.getLitColor(multipliedLight,
 							light.getLightVector());
 				}
 			} else {
@@ -75,11 +76,7 @@ public class Image {
 	private boolean isHitByShadowRay(Ray ray, Surface hitSurface) {
 		float[] originOfShadowRay = ray.pointAtParameter(hitSurface.getT());
 		Ray shadowRay = new Ray(originOfShadowRay, light.getLightVector());
-//		if (((Sphere) hitSurface)
-//				.getNDotL(ray.getOrigin(), light.getLightVector()) > 0) {
-//			return false;
-//		}
-		return this.surfaces.hit(shadowRay, 0, Integer.MAX_VALUE);
+		return this.surfaces.hit(shadowRay, 0.001, Integer.MAX_VALUE);
 	}
 
 	public void populateImage(RGB[][] pixels) {
