@@ -7,6 +7,10 @@ public class OrthonormalBasis {
 	Vector3D w;
 	Vector3D v;
 
+	public OrthonormalBasis() {
+		// to create ONBs from WV for pinhole camera
+	}
+
 	public OrthonormalBasis(Vector3D a, Vector3D b) {
 		this.a = a;
 		this.b = b;
@@ -71,6 +75,15 @@ public class OrthonormalBasis {
 		crossProduct.scaleDown(crossProduct.getLength());
 		parallelToCrossProduct = crossProduct;
 		inPlane = parallelToCrossProduct.getCrossProduct(parallel);
+	}
+
+	public OrthonormalBasis makeONBFromWV(Vector3D g, Vector3D v) {
+		g.scaleDown(g.getLength());
+		g.scaleUp(-1);
+		Vector3D crossProduct = v.getCrossProduct(w);
+		crossProduct.scaleDown(crossProduct.getLength());
+		return new OrthonormalBasis(crossProduct,
+				g.getCrossProduct(crossProduct), g);
 	}
 
 	public double getASubU() {
