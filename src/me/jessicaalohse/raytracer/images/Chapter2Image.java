@@ -13,10 +13,11 @@ public class Chapter2Image {
 
 	public Chapter2Image() {
 		Image image = new Image(rowsColumns, rowsColumns);
-		Sphere sphere = new Sphere(0, 0, -150, 100.1f, new RGB(215, 215, 215));
+		Sphere sphere = new Sphere(0, 0, -150, 100.1f, new RGB(215, 215, 215),
+				0);
 		Triangle triangle = new Triangle(new double[] { 0, 0, -100 },
 				new double[] { 100.1, 0, -100 },
-				new double[] { 50, 100.1, -100 }, new RGB(112, 112, 112));
+				new double[] { 50, 100.1, -100 }, new RGB(112, 112, 112), 0);
 		image.addSurface(sphere);
 		image.addSurface(triangle);
 		image.createImage();

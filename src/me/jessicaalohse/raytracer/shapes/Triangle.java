@@ -23,8 +23,9 @@ public class Triangle implements Surface {
 	Vector3D d;
 	float[] origin;
 	RGB color;
+	double reflectance;
 
-	public Triangle(double[] a, double[] b, double[] c, RGB color) {
+	public Triangle(double[] a, double[] b, double[] c, RGB color, double reflectance) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -38,6 +39,7 @@ public class Triangle implements Surface {
 		this.cY = this.c[1];
 		this.cZ = this.c[2];
 		this.color = color;
+		this.reflectance = reflectance;
 	}
 
 	public Vector3D getNormal() {
@@ -119,5 +121,9 @@ public class Triangle implements Surface {
 	
 	public RGB getColor() {
 		return color;
+	}
+	
+	public double getReflectance(){
+		return this.reflectance;
 	}
 }

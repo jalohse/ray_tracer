@@ -16,8 +16,8 @@ public class Chapter3Image {
 
 		Image image = new Image(rowsColumns, rowsColumns);
 		RGB lightGray = new RGB(215, 215, 215);
-		Sphere largeSphere = new Sphere(50, -80, -1000, 100, lightGray);
-		Sphere smallSphere = new Sphere(50, 50, -1000, 30, lightGray);
+		Sphere largeSphere = new Sphere(50, -80, -1000, 100, lightGray, 0);
+		Sphere smallSphere = new Sphere(50, 50, -1000, 30, lightGray, 0);
 		image.addSurface(largeSphere);
 		image.addSurface(smallSphere);
 		Light light = new Light(new Vector3D(0, 1, 0), new RGB(255, 255, 255));

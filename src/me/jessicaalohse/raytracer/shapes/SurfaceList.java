@@ -43,10 +43,15 @@ public class SurfaceList implements Surface {
 	public double getT() {
 		return t;
 	}
-	
+
 	@Override
 	public RGB getColor() {
 		return prim.getColor();
+	}
+
+	@Override
+	public double getReflectance() {
+		return prim.getReflectance();
 	}
 
 }

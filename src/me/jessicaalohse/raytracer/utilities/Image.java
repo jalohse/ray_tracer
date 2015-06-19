@@ -18,6 +18,8 @@ public class Image {
 	RGB[][] image;
 	private SurfaceList surfaces = new SurfaceList();
 	private Light light;
+	private PinholeCamera camera;
+	private float ambience;
 
 	public Image(int rows, int columns) {
 		this.rows = rows;
@@ -33,13 +35,20 @@ public class Image {
 		this.light = light;
 	}
 
+	public void addCamera(PinholeCamera camera) {
+		this.camera = camera;
+	}
+
+	public void addAmbientLight(float ambience) {
+		this.ambience = ambience;
+	}
+
 	public void createImage() {
 		RGB black = new RGB(0, 0, 0);
 		RGB[][] pixels = new RGB[this.rows][this.columns];
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
-				float[] origin = new float[] { i, j, 0 };
-				Ray ray = new Ray(origin, new Vector3D(0, 0, -1));
+				Ray ray = this.createRay(i, j);
 				if (this.surfaces.hit(ray, 0, Integer.MAX_VALUE)) {
 					pixels[i][j] = getHitColor(ray);
 				} else {
@@ -50,12 +59,22 @@ public class Image {
 		populateImage(pixels);
 	}
 
+	private Ray createRay(int i, int j) {
+		if (this.camera == null) {
+			float[] origin = new float[] { i, j, 0 };
+			return new Ray(origin, new Vector3D(0, 0, -1));
+		} else {
+			return this.camera.createViewingRay(i, j);
+		}
+	}
+
 	public RGB getHitColor(Ray ray) {
 		Surface hitSurface = this.surfaces.getPrim();
+		RGB hitSurfaceColor = this.getAdjustedColor(hitSurface);
 		if (light != null) {
 			if (!isHitByShadowRay(ray, hitSurface)) {
-				RGB multipliedLight = light.getColor().multiply(
-						hitSurface.getColor());
+				RGB multipliedLight = light.getColor()
+						.multiply(hitSurfaceColor);
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
 					return sphere.getLitColor(multipliedLight, ray.getOrigin(),
@@ -66,10 +85,37 @@ public class Image {
 							light.getLightVector());
 				}
 			} else {
-				return new RGB(0, 0, 0);
+				int ambientBlack = (int) (0 + this.ambience);
+				return new RGB(ambientBlack, ambientBlack, ambientBlack);
 			}
 		} else {
-			return hitSurface.getColor();
+			return hitSurfaceColor;
+		}
+	}
+
+	private RGB getAdjustedColor(Surface hitSurface) {
+		RGB original = hitSurface.getColor();
+		if (this.ambience != 0) {
+			float adjustment = this.ambience * 255;
+			int red = (int) (original.getRed() + adjustment);
+			int green = (int) (original.getGreen() + adjustment);
+			int blue = (int) (original.getBlue() + adjustment);
+			return addReflectance(new int[] { red, green, blue }, hitSurface);
+		} else {
+			return addReflectance(
+					new int[] { original.getRed(), original.getGreen(),
+							original.getBlue() }, hitSurface);
+		}
+
+	}
+
+	private RGB addReflectance(int[] rgb, Surface hitSurface) {
+		double reflectance = hitSurface.getReflectance();
+		if (reflectance != 0) {
+			return new RGB((int) (rgb[0] * reflectance),
+					(int) (rgb[1] * reflectance), (int) (rgb[2] * reflectance));
+		} else {
+			return new RGB(rgb[0], rgb[1], rgb[2]);
 		}
 	}
 
