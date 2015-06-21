@@ -35,12 +35,17 @@ public class Vector3D implements Vector {
 	}
 
 	public double getLength() {
-		return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2)
-				+ Math.pow(getZ(), 2));
+		return Math.sqrt(getX() * getX() + getY() * getY() + getZ() * getZ());
 	}
 
 	public double getLengthSquared() {
-		return Math.pow(getLength(), 2);
+		return getLength() * getLength();
+	}
+
+	public Vector3D makeUnitVector() {
+		Vector3D newVector = new Vector3D(this.getX(), this.getY(), this.getZ());
+		newVector.scaleDown(newVector.getLength());
+		return newVector;
 	}
 
 	public void makePositive() {

@@ -40,10 +40,10 @@ public class PinholeCamera {
 	}
 
 	private OrthonormalBasis makeUVWFrame() {
-		OrthonormalBasis frame = new OrthonormalBasis();
 		Vector3D gaze = this.gazeVector;
 		gaze.scaleUp(-1);
-		return frame.makeONBFromWV(gaze, this.viewUpVector);
+		OrthonormalBasis frame = new OrthonormalBasis();
+		return frame.constructFromWV(gaze, this.viewUpVector);
 	}
 
 	private Vector3D findUVector(OrthonormalBasis frame, int i) {
