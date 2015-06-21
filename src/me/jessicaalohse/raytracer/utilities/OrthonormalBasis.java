@@ -80,7 +80,7 @@ public class OrthonormalBasis {
 	public OrthonormalBasis makeONBFromWV(Vector3D g, Vector3D v) {
 		g.scaleDown(g.getLength());
 		g.scaleUp(-1);
-		Vector3D crossProduct = v.getCrossProduct(w);
+		Vector3D crossProduct = v.getCrossProduct(g);
 		crossProduct.scaleDown(crossProduct.getLength());
 		return new OrthonormalBasis(crossProduct,
 				g.getCrossProduct(crossProduct), g);

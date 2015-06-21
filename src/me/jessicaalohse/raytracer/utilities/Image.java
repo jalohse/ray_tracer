@@ -44,7 +44,6 @@ public class Image {
 	}
 
 	public void createImage() {
-		RGB black = new RGB(0, 0, 0);
 		RGB[][] pixels = new RGB[this.rows][this.columns];
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
@@ -52,11 +51,16 @@ public class Image {
 				if (this.surfaces.hit(ray, 0, Integer.MAX_VALUE)) {
 					pixels[i][j] = getHitColor(ray);
 				} else {
-					pixels[i][j] = black;
+					pixels[i][j] = getAmbientBlack();
 				}
 			}
 		}
 		populateImage(pixels);
+	}
+
+	private RGB getAmbientBlack() {
+		int ambientBlack = (int) (0 + (this.ambience * 255));
+		return new RGB(ambientBlack, ambientBlack, ambientBlack);
 	}
 
 	private Ray createRay(int i, int j) {
@@ -71,7 +75,7 @@ public class Image {
 	public RGB getHitColor(Ray ray) {
 		Surface hitSurface = this.surfaces.getPrim();
 		RGB hitSurfaceColor = this.getAdjustedColor(hitSurface);
-		if (light != null) {
+		if (this.light != null) {
 			if (!isHitByShadowRay(ray, hitSurface)) {
 				RGB multipliedLight = light.getColor()
 						.multiply(hitSurfaceColor);
@@ -85,8 +89,7 @@ public class Image {
 							light.getLightVector());
 				}
 			} else {
-				int ambientBlack = (int) (0 + this.ambience);
-				return new RGB(ambientBlack, ambientBlack, ambientBlack);
+				return getAmbientBlack();
 			}
 		} else {
 			return hitSurfaceColor;
