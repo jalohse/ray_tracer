@@ -56,11 +56,12 @@ public class Sphere implements Surface {
 			double sqrtd = Math.sqrt(discriminant);
 			float tVal = (float) ((-b - sqrtd) / (2 * a));
 			if (tVal < tSubZero) {
-				t = (float) ((-b + sqrtd) / (2 * a));
+				tVal = (float) ((-b + sqrtd) / (2 * a));
 			}
 			if (tVal < tSubZero || tVal > tSubOne) {
 				return false;
 			}
+			t = tVal;
 			return true;
 		}
 		return false;

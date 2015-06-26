@@ -64,12 +64,12 @@ public class Triangle implements Surface {
 		Matrix matrixA = createMatrixA();
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);
-		if (beta <= 0 || beta >= 1) {
+		if (beta <= 0.0 || beta >= 1.0) {
 			return false;
 		}
 		double gamma = getGamma(determinantA);
 		double tVal = setT(determinantA);
-		if (gamma <= 0 && beta + gamma >= 1) {
+		if (gamma <= 0.0 || beta + gamma >= 1.0) {
 			return false;
 		}
 		if (tVal >= tSubZero && tVal <= tSub1) {
@@ -128,12 +128,12 @@ public class Triangle implements Surface {
 		Matrix matrixA = createMatrixA();
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);
-		if (beta <= 0 || beta >= 1) {
+		if (beta <= 0.0 || beta >= 1.0) {
 			return false;
 		}
 		double gamma = getGamma(determinantA);
 		double tVal = setT(determinantA);
-		if (gamma <= 0 && beta + gamma >= 1) {
+		if (gamma <= 0.0 || beta + gamma >= 1.0) {
 			return false;
 		}
 		return (tVal >= tSubZero && tVal <= tSub1);
