@@ -48,7 +48,7 @@ public class Image {
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
 				Ray ray = this.createRay(i, j);
-				if (this.surfaces.hit(ray, 0, Integer.MAX_VALUE)) {
+				if (this.surfaces.hit(ray, 0, Integer.MAX_VALUE, 0)) {
 					pixels[i][j] = getHitColor(ray);
 				} else {
 					pixels[i][j] = getAmbientBlack();
@@ -125,7 +125,7 @@ public class Image {
 	private boolean isHitByShadowRay(Ray ray, Surface hitSurface) {
 		float[] originOfShadowRay = ray.pointAtParameter(hitSurface.getT());
 		Ray shadowRay = new Ray(originOfShadowRay, light.getLightVector());
-		return this.surfaces.hit(shadowRay, 0.001, Integer.MAX_VALUE);
+		return this.surfaces.hit(shadowRay, 0.001, Integer.MAX_VALUE, 0);
 	}
 
 	public void populateImage(RGB[][] pixels) {
