@@ -21,18 +21,23 @@ public class SurfaceList implements Surface {
 	}
 
 	@Override
-	public boolean hit(Ray ray, double tSubZero, double tSub1) {
+	public boolean hit(Ray ray, double tSubZero, double tSub1, float time) {
 		boolean hitOne = false;
 		t = tSub1;
 		prim = null;
 		for (Surface surface : surfaces) {
-			if (surface.hit(ray, tSubZero, t)) {
+			if (surface.hit(ray, tSubZero, t, time)) {
 				prim = surface;
 				t = surface.getT();
 				hitOne = true;
 			}
 		}
 		return hitOne;
+	}
+	
+	@Override
+	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
+		return false;
 	}
 
 	public Surface getPrim() {

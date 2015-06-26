@@ -12,14 +12,15 @@ public class Sphere implements Surface {
 	RGB color;
 	double reflectance;
 
-	public Sphere(float x, float y, float z, float radius, RGB color, double reflectance) {
+	public Sphere(float x, float y, float z, float radius, RGB color,
+			double reflectance) {
 		this.origin[0] = x;
 		this.origin[1] = y;
 		this.origin[2] = z;
 		this.radius = radius;
 		this.color = color;
 		this.reflectance = reflectance;
-		
+
 	}
 
 	public Vector3D getNormalForPoint(Vector3D point) {
@@ -42,28 +43,49 @@ public class Sphere implements Surface {
 	}
 
 	@Override
-	public boolean hit(Ray ray, double tSubZero, double tSubOne) {
+	public boolean hit(Ray ray, double tSubZero, double tSubOne, float time) {
 		Vector3D d = ((Vector3D) ray.getDistanceVector());
 		float[] origin = ray.getOrigin();
 		Vector3D originCenter = new Vector3D(origin[0] - this.origin[0],
 				origin[1] - this.origin[1], origin[2] - this.origin[2]);
 		float a = d.getDotProduct(d);
 		float b = 2 * d.getDotProduct(originCenter);
-		float c = (float) (originCenter.getDotProduct(originCenter) - Math.pow(
-				radius, 2));
+		float c = (float) (originCenter.getDotProduct(originCenter) - (radius * radius));
 		float discriminant = b * b - 4 * a * c;
-		if (discriminant >= Math.ulp(discriminant)) {
+		if (discriminant > 0) {
 			double sqrtd = Math.sqrt(discriminant);
 			float tVal = (float) ((-b - sqrtd) / (2 * a));
-			if (tVal > tSubZero && tVal < tSubOne) {
-				t = tVal;
-				return true;
+			if (tVal < tSubZero) {
+				t = (float) ((-b + sqrtd) / (2 * a));
 			}
-			tVal = (float) ((-b + sqrtd) / (2 * a));
-			if (tVal > tSubZero && tVal < tSubOne) {
-				t = tVal;
-				return true;
+			if (tVal < tSubZero || tVal > tSubOne) {
+				return false;
 			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
+		Vector3D d = ((Vector3D) ray.getDistanceVector());
+		float[] origin = ray.getOrigin();
+		Vector3D originCenter = new Vector3D(origin[0] - this.origin[0],
+				origin[1] - this.origin[1], origin[2] - this.origin[2]);
+		float a = d.getDotProduct(d);
+		float b = 2 * d.getDotProduct(originCenter);
+		float c = (float) (originCenter.getDotProduct(originCenter) - (radius * radius));
+		float discriminant = b * b - 4 * a * c;
+		if (discriminant > 0) {
+			double sqrtd = Math.sqrt(discriminant);
+			float tVal = (float) ((-b - sqrtd) / (2 * a));
+			if (tVal < tSubZero) {
+				tVal = (float) ((-b + sqrtd) / (2 * a));
+			}
+			if (tVal < tSubZero || tVal > tSub1) {
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}
@@ -75,7 +97,7 @@ public class Sphere implements Surface {
 	public RGB getColor() {
 		return color;
 	}
-	
+
 	public double getReflectance() {
 		return reflectance;
 	}

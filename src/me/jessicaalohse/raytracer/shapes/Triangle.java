@@ -25,7 +25,8 @@ public class Triangle implements Surface {
 	RGB color;
 	double reflectance;
 
-	public Triangle(double[] a, double[] b, double[] c, RGB color, double reflectance) {
+	public Triangle(double[] a, double[] b, double[] c, RGB color,
+			double reflectance) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -57,15 +58,22 @@ public class Triangle implements Surface {
 	}
 
 	@Override
-	public boolean hit(Ray ray, double tSubZero, double tSub1) {
+	public boolean hit(Ray ray, double tSubZero, double tSub1, float time) {
 		this.d = ((Vector3D) ray.getDistanceVector());
 		this.origin = ray.getOrigin();
 		Matrix matrixA = createMatrixA();
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);
-		double rho = getRho(determinantA);
-		setT(determinantA);
-		if (beta > 0 && rho > 0 && beta + rho < 1 && t < tSub1 && t > tSubZero) {
+		if (beta <= 0 || beta >= 1) {
+			return false;
+		}
+		double gamma = getGamma(determinantA);
+		double tVal = setT(determinantA);
+		if (gamma <= 0 && beta + gamma >= 1) {
+			return false;
+		}
+		if (tVal >= tSubZero && tVal <= tSub1) {
+			this.t = tVal;
 			return true;
 		}
 		return false;
@@ -90,21 +98,21 @@ public class Triangle implements Surface {
 				{ aZ - origin[2], aZ - cZ, d.getZ() } });
 	}
 
-	private double getRho(double determinantA) {
-		Matrix rhoNum = createMatrixRho();
-		return rhoNum.det() / determinantA;
+	private double getGamma(double determinantA) {
+		Matrix gammaNum = createMatrixGamma();
+		return gammaNum.det() / determinantA;
 	}
 
-	private Matrix createMatrixRho() {
+	private Matrix createMatrixGamma() {
 		return new Matrix(new double[][] {
 				{ aX - bX, aX - origin[0], d.getX() },
 				{ aY - bY, aY - origin[1], d.getY() },
 				{ aZ - bZ, aZ - origin[0], d.getZ() } });
 	}
 
-	private void setT(double determinantA) {
+	private double setT(double determinantA) {
 		Matrix tNum = createMatrixT();
-		this.t = tNum.det() / determinantA;
+		return tNum.det() / determinantA;
 	}
 
 	private Matrix createMatrixT() {
@@ -114,16 +122,33 @@ public class Triangle implements Surface {
 				{ aZ - bZ, aZ - cZ, aZ - origin[2] } });
 	}
 
+	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
+		this.d = ((Vector3D) ray.getDistanceVector());
+		this.origin = ray.getOrigin();
+		Matrix matrixA = createMatrixA();
+		double determinantA = matrixA.det();
+		double beta = getBeta(determinantA);
+		if (beta <= 0 || beta >= 1) {
+			return false;
+		}
+		double gamma = getGamma(determinantA);
+		double tVal = setT(determinantA);
+		if (gamma <= 0 && beta + gamma >= 1) {
+			return false;
+		}
+		return (tVal >= tSubZero && tVal <= tSub1);
+	}
+
 	@Override
 	public double getT() {
 		return t;
 	}
-	
+
 	public RGB getColor() {
 		return color;
 	}
-	
-	public double getReflectance(){
+
+	public double getReflectance() {
 		return this.reflectance;
 	}
 }
