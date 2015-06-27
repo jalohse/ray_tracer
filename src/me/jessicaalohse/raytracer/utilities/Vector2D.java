@@ -1,5 +1,6 @@
 package me.jessicaalohse.raytracer.utilities;
-public class Vector2D implements Vector{
+
+public class Vector2D implements Vector {
 
 	float[] vector;
 
@@ -25,7 +26,7 @@ public class Vector2D implements Vector{
 	}
 
 	public double getLength() {
-		return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2));
+		return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY());
 	}
 
 	public double getLengthSquared() {
