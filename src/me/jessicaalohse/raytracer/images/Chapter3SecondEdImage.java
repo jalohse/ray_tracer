@@ -7,26 +7,24 @@ import me.jessicaalohse.raytracer.shapes.Triangle;
 import me.jessicaalohse.raytracer.utilities.Image;
 import me.jessicaalohse.raytracer.utilities.RGB;
 
-public class Chapter2Image {
+public class Chapter3SecondEdImage {
 
-	int rowsColumns = 101;
+	int rowsColumns = 500;
 
-	public Chapter2Image() {
+	public Chapter3SecondEdImage() {
 		Image image = new Image(rowsColumns, rowsColumns);
-		Sphere sphere = new Sphere(0, 0, -150, 100.1f, new RGB(215, 215, 215),
-				0);
-		Triangle triangle = new Triangle(new double[] { 0, 0, -100 },
-				new double[] { 100.1, 0, -100 },
-				new double[] { 50, 100.1, -100 }, new RGB(112, 112, 112), 0);
+		Sphere sphere = new Sphere(250, 250, -1000, 150, new RGB(0, 0, 255), 0);
+		Triangle triangle = new Triangle(new double[] { 300, 600, -800 },
+				new double[] { 0, 100, -1000 },
+				new double[] { 450, 20, -1000 }, new RGB(255, 0, 0), 0);
 		image.addSurface(sphere);
 		image.addSurface(triangle);
 		image.createImage();
 		try {
-			image.printImage("Chapter2Image");
-			System.out.println("Created Chapter2Image.png");
+			image.printImage("Chapter3SecondEdImage");
+			System.out.println("Created Chapter3SecondEdImage.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

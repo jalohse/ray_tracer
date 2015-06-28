@@ -1,15 +1,16 @@
 package me.jessicaalohse.raytracer.utilities;
 
 public class OrthonormalBasis {
-	Vector3D a;
-	Vector3D b;
 	Vector3D u;
 	Vector3D w;
 	Vector3D v;
 
-	public OrthonormalBasis(Vector3D a, Vector3D b) {
-		this.a = a;
-		this.b = b;
+	final Vector3D n = new Vector3D(1, 0, 0);
+	final Vector3D m = new Vector3D(0, 1, 0);
+	final double EPSILON = 0.01;
+
+	public OrthonormalBasis() {
+
 	}
 
 	public OrthonormalBasis(Vector3D u, Vector3D v, Vector3D w) {
@@ -18,78 +19,76 @@ public class OrthonormalBasis {
 		this.w = w;
 	}
 
-	public void constructFromUV() {
-		construct(this.u, this.v, this.w);
+	public OrthonormalBasis constructFromUV(Vector3D a, Vector3D b) {
+		Vector3D u = a.makeUnitVector();
+		Vector3D w = a.getCrossProduct(b).makeUnitVector();
+		Vector3D v = w.getCrossProduct(u);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public void constructFromVU() {
-		construct(this.v, this.u, this.w);
+	public OrthonormalBasis constructFromVU(Vector3D a, Vector3D b) {
+		Vector3D v = a.makeUnitVector();
+		Vector3D w = b.getCrossProduct(a).makeUnitVector();
+		Vector3D u = v.getCrossProduct(w);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public void constructFromVW() {
-		construct(this.v, this.w, this.u);
+	public OrthonormalBasis constructFromVW(Vector3D a, Vector3D b) {
+		Vector3D v = a.makeUnitVector();
+		Vector3D u = a.getCrossProduct(b).makeUnitVector();
+		Vector3D w = u.getCrossProduct(v);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public void constructFromWV() {
-		construct(this.w, this.v, this.u);
+	public OrthonormalBasis constructFromWV(Vector3D a, Vector3D b) {
+		Vector3D w = a.makeUnitVector();
+		Vector3D u = b.getCrossProduct(a).makeUnitVector();
+		Vector3D v = w.getCrossProduct(u);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public void constructFromUW() {
-		construct(this.u, this.w, this.v);
+	public OrthonormalBasis constructFromUW(Vector3D a, Vector3D b) {
+		Vector3D u = a.makeUnitVector();
+		Vector3D v = b.getCrossProduct(a).makeUnitVector();
+		Vector3D w = u.getCrossProduct(v);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public void constructFromWU() {
-		construct(this.w, this.u, this.v);
+	public OrthonormalBasis constructFromWU(Vector3D a, Vector3D b) {
+		Vector3D w = a.makeUnitVector();
+		Vector3D v = a.getCrossProduct(b).makeUnitVector();
+		Vector3D u = v.getCrossProduct(w);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public void constructFromW() {
-		a.scaleDown(a.getLength());
-		this.w = a;
-		double absX = Math.abs(w.getX());
-		double absY = Math.abs(w.getY());
-		double absZ = Math.abs(w.getZ());
-		Vector3D newVector;
-		if (absX < absY && absX < absZ) {
-			newVector = new Vector3D(0, w.getZ(), w.getY() * -1);
-			newVector.scaleDown(newVector.getLength());
-		} else if (absY < absZ) {
-			newVector = new Vector3D(w.getZ(), 0, w.getX() * -1);
-			newVector.scaleDown(newVector.getLength());
-		} else {
-			newVector = new Vector3D(w.getY(), w.getX() * -1, 0);
-			newVector.scaleDown(newVector.getLength());
+	public OrthonormalBasis constructFromU(Vector3D a) {
+		Vector3D u = a.makeUnitVector();
+		Vector3D v = u.getCrossProduct(n);
+		if (v.getLengthSquared() < EPSILON) {
+			v = u.getCrossProduct(m);
 		}
-		this.v = newVector;
-		this.u = v.getCrossProduct(w);
+		Vector3D w = u.getCrossProduct(v);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	private void construct(Vector3D parallel, Vector3D inPlane,
-			Vector3D parallelToCrossProduct) {
-		a.scaleDown(a.getLength());
-		parallel = a;
-		Vector3D crossProduct = a.getCrossProduct(b);
-		crossProduct.scaleDown(crossProduct.getLength());
-		parallelToCrossProduct = crossProduct;
-		inPlane = parallelToCrossProduct.getCrossProduct(parallel);
+	public OrthonormalBasis constructFromV(Vector3D a) {
+		Vector3D v = a.makeUnitVector();
+		Vector3D u = v.getCrossProduct(n);
+		if (u.getLengthSquared() < EPSILON) {
+			u = v.getCrossProduct(m);
+		}
+		Vector3D w = u.getCrossProduct(v);
+		return new OrthonormalBasis(u, v, w);
 	}
 
-	public double getASubU() {
-		return a.getDotProduct(u);
-	}
-
-	public double getASubV() {
-		return a.getDotProduct(v);
-	}
-
-	public double getASubW() {
-		return a.getDotProduct(w);
-	}
-
-	public Vector3D getAXYZ() {
-		u.scaleUp(getASubU());
-		v.scaleUp(getASubV());
-		w.scaleUp(getASubW());
-		return u.add(v).add(w);
+	public OrthonormalBasis constructFromW(Vector3D a) {
+		Vector3D w = a.makeUnitVector();
+		Vector3D u = w.getCrossProduct(n);
+		if (u.getLengthSquared() < EPSILON) {
+			u = w.getCrossProduct(m);
+		}
+		Vector3D v = w.getCrossProduct(u);
+		return new OrthonormalBasis(u, v, w);
 	}
 
 	public Vector3D getU() {

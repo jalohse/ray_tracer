@@ -1,4 +1,5 @@
 package me.jessicaalohse.raytracer.utilities;
+
 public class RGB {
 
 	public static final int MAX_BYTE = 255;
@@ -28,10 +29,19 @@ public class RGB {
 		this.setBlue(this.blue * -1);
 	}
 
-	public void scaleUp(int scale) {
-		this.setRed(this.red * scale);
-		this.setGreen(this.green * scale);
-		this.setBlue(this.blue * scale);
+	public void scaleUp(float scale) {
+		if (scale < 0) {
+			scale = 0;
+		}
+		if (scale < 1) {
+			this.setRed((int) (this.red * scale));
+			this.setGreen((int) (this.green * scale));
+			this.setBlue((int) (this.blue * scale));
+		} else {
+			this.setRed((int) (this.red * scale) / 255);
+			this.setGreen((int) (this.green * scale) / 255);
+			this.setBlue((int) (this.blue * scale) / 255);
+		}
 	}
 
 	public void scaleDown(int scale) {
@@ -55,9 +65,9 @@ public class RGB {
 	}
 
 	public RGB multiply(RGB b) {
-		int red = this.red * b.red;
-		int green = this.green * b.green;
-		int blue = this.blue * b.blue;
+		int red = (this.red * b.red) / 255;
+		int green = (this.green * b.green) / 255;
+		int blue = (this.blue * b.blue) / 255;
 		return new RGB(red, green, blue);
 	}
 
