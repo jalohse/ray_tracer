@@ -16,15 +16,14 @@ public class Chapter4Image {
 	public Chapter4Image() {
 		Image image = new Image(rowsColumns, rowsColumns);
 
-		float[] eyePoint = new float[] { 0, 0, 2 };
+		Vector3D eyePoint = new Vector3D(0, 0, 2);
 		Vector3D gazeVector = new Vector3D(0, 0, -2);
 		Vector3D viewUpVector = new Vector3D(0, 1, 0);
-		double[] a = new double[] { -2, -2 };
-		double[] b = new double[] { 2, 2 };
-//		Camera camera = new Camera(eyePoint, gazeVector,
-//				viewUpVector, 2, a, b);
-//		camera.setDimensions(rowsColumns, rowsColumns);
-//		image.addCamera(camera);
+		float[] a = new float[] { -2, -2 };
+		float[] b = new float[] { 2, 2 };
+		Camera camera = new Camera(eyePoint, gazeVector, viewUpVector, 5f,
+				a[0], b[0], a[1], b[1], 2f);
+		image.addCamera(camera);
 
 		Sphere sphere = new Sphere(0, 0, 0, (float) Math.sqrt(2), new RGB(215,
 				215, 215), 0.9);
