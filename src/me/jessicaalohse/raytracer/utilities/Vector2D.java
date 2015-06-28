@@ -43,9 +43,10 @@ public class Vector2D implements Vector {
 		this.setY(getY() * -1);
 	}
 
-	public void scaleUp(double scale) {
+	public Vector scaleUp(double scale) {
 		this.setX((float) (getX() * scale));
 		this.setY((float) (getY() * scale));
+		return this;
 	}
 
 	public void scaleDown(double scale) {

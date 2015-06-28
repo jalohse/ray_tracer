@@ -18,7 +18,7 @@ public interface Vector {
 
 	public void makeNegative();
 
-	public void scaleUp(double scale);
+	public Vector scaleUp(double scale);
 
 	public void scaleDown(double scale);
 	

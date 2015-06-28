@@ -60,10 +60,11 @@ public class Vector3D implements Vector {
 		this.setZ(getZ() * -1);
 	}
 
-	public void scaleUp(double scale) {
-		this.setX((float) (getX() * scale));
-		this.setY((float) (getY() * scale));
-		this.setZ((float) (getZ() * scale));
+	public Vector scaleUp(double scale) {
+		float x = (float) (getX() * scale);
+		float y = (float) (getY() * scale);
+		float z = (float) (getZ() * scale);
+		return new Vector3D(x, y, z);
 	}
 
 	public void scaleDown(double scale) {

@@ -18,7 +18,7 @@ public class Image {
 	RGB[][] image;
 	private SurfaceList surfaces = new SurfaceList();
 	private Light light;
-	private PinholeCamera camera;
+	private Camera camera;
 	private float ambience;
 
 	public Image(int rows, int columns) {
@@ -35,7 +35,7 @@ public class Image {
 		this.light = light;
 	}
 
-	public void addCamera(PinholeCamera camera) {
+	public void addCamera(Camera camera) {
 		this.camera = camera;
 	}
 
@@ -65,10 +65,10 @@ public class Image {
 
 	private Ray createRay(int i, int j) {
 		if (this.camera == null) {
-			float[] origin = new float[] { i, j, 0 };
+			Vector3D origin = new Vector3D(i, j, 0);
 			return new Ray(origin, new Vector3D(0, 0, -1));
 		} else {
-			return this.camera.createViewingRay(i, j);
+			return this.camera.getRay(i, j, 10, 10);
 		}
 	}
 
@@ -81,8 +81,8 @@ public class Image {
 						.multiply(hitSurfaceColor);
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
-					return sphere.getLitColor(multipliedLight, ray.getOrigin(),
-							light.getLightVector());
+					return sphere.getLitColor(multipliedLight,
+							(Vector3D) ray.getOrigin(), light.getLightVector());
 				} else {
 					Triangle triangle = (Triangle) hitSurface;
 					return triangle.getLitColor(multipliedLight,
@@ -123,7 +123,8 @@ public class Image {
 	}
 
 	private boolean isHitByShadowRay(Ray ray, Surface hitSurface) {
-		float[] originOfShadowRay = ray.pointAtParameter(hitSurface.getT());
+		Vector3D originOfShadowRay = (Vector3D) ray.pointAtParameter(hitSurface
+				.getT());
 		Ray shadowRay = new Ray(originOfShadowRay, light.getLightVector());
 		return this.surfaces.hit(shadowRay, 0.001, Integer.MAX_VALUE, 0);
 	}

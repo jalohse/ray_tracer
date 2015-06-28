@@ -1,37 +1,36 @@
 package me.jessicaalohse.raytracer.utilities;
 
-import java.util.Arrays;
-
 public class Ray {
 
-	float[] origin;
+	Vector origin;
 	Vector distanceVector;
 
-	public Ray(float[] origin, Vector vector) {
+	public Ray(Vector origin, Vector vector) {
 		this.origin = origin;
 		this.distanceVector = vector;
 	}
 
-	public float[] pointAtParameter(double t) {
-		distanceVector.scaleUp(t);
-		float x = origin[0] + distanceVector.getX();
-		float y = origin[1] + distanceVector.getY();
+	public Vector pointAtParameter(double t) {
+		Vector distance = distanceVector.scaleUp(t);
+		float x = origin.getX() + distance.getX();
+		float y = origin.getY() + distance.getY();
 		if (distanceVector instanceof Vector2D) {
-			return new float[] {x, y};
+			return new Vector2D(x, y);
 		} else {
-			Vector3D vector = (Vector3D) distanceVector;
-			float z = origin[2] + vector.getZ();
-			return new float[] {x, y, z};
+			Vector3D origin3D = (Vector3D) origin;
+			Vector3D vector = (Vector3D) distance;
+			float z = origin3D.getZ() + vector.getZ();
+			return new Vector3D(x, y, z);
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "Ray [origin=" + Arrays.toString(origin) + ", distanceVector="
-				+ distanceVector + "]";
+		return "Ray [origin=" + origin + ", distanceVector=" + distanceVector
+				+ "]";
 	}
 
-	public float[] getOrigin() {
+	public Vector getOrigin() {
 		return origin;
 	}
 

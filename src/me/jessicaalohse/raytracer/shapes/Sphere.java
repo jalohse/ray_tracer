@@ -6,7 +6,7 @@ import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class Sphere implements Surface {
 
-	float[] origin = new float[3];
+	Vector3D origin;
 	float radius;
 	double t;
 	RGB color;
@@ -14,9 +14,7 @@ public class Sphere implements Surface {
 
 	public Sphere(float x, float y, float z, float radius, RGB color,
 			double reflectance) {
-		this.origin[0] = x;
-		this.origin[1] = y;
-		this.origin[2] = z;
+		this.origin = new Vector3D(x, y, z);
 		this.radius = radius;
 		this.color = color;
 		this.reflectance = reflectance;
@@ -24,18 +22,17 @@ public class Sphere implements Surface {
 	}
 
 	public Vector3D getNormalForPoint(Vector3D point) {
-		return new Vector3D((point.getX() - this.origin[0]) / this.radius,
-				(point.getY() - this.origin[1]) / this.radius,
-				(point.getZ() - this.origin[2]) / this.radius);
+		return new Vector3D((point.getX() - this.origin.getX()) / this.radius,
+				(point.getY() - this.origin.getY()) / this.radius,
+				(point.getZ() - this.origin.getZ()) / this.radius);
 	}
 
-	public float getNDotL(float[] point, Vector3D lightVector) {
-		Vector3D vectorPoint = new Vector3D(point[0], point[1], point[2]);
-		Vector3D normal = getNormalForPoint(vectorPoint);
+	public float getNDotL(Vector3D point, Vector3D lightVector) {
+		Vector3D normal = getNormalForPoint(point);
 		return normal.getDotProduct(lightVector);
 	}
 
-	public RGB getLitColor(RGB lightMultiplied, float[] point,
+	public RGB getLitColor(RGB lightMultiplied, Vector3D point,
 			Vector3D lightVector) {
 		float nDotL = getNDotL(point, lightVector);
 		lightMultiplied.scaleUp(nDotL);
@@ -45,9 +42,11 @@ public class Sphere implements Surface {
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSubOne, float time) {
 		Vector3D d = ((Vector3D) ray.getDistanceVector());
-		float[] origin = ray.getOrigin();
-		Vector3D originCenter = new Vector3D(origin[0] - this.origin[0],
-				origin[1] - this.origin[1], origin[2] - this.origin[2]);
+		Vector3D origin = (Vector3D) ray.getOrigin();
+		Vector3D originCenter = new Vector3D(
+				origin.getX() - this.origin.getX(), origin.getY()
+						- this.origin.getY(), origin.getZ()
+						- this.origin.getZ());
 		float a = d.getDotProduct(d);
 		float b = 2 * d.getDotProduct(originCenter);
 		float c = (float) (originCenter.getDotProduct(originCenter) - (radius * radius));
@@ -70,9 +69,11 @@ public class Sphere implements Surface {
 	@Override
 	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
 		Vector3D d = ((Vector3D) ray.getDistanceVector());
-		float[] origin = ray.getOrigin();
-		Vector3D originCenter = new Vector3D(origin[0] - this.origin[0],
-				origin[1] - this.origin[1], origin[2] - this.origin[2]);
+		Vector3D origin = (Vector3D) ray.getOrigin();
+		Vector3D originCenter = new Vector3D(
+				origin.getX() - this.origin.getX(), origin.getY()
+						- this.origin.getY(), origin.getZ()
+						- this.origin.getZ());
 		float a = d.getDotProduct(d);
 		float b = 2 * d.getDotProduct(originCenter);
 		float c = (float) (originCenter.getDotProduct(originCenter) - (radius * radius));

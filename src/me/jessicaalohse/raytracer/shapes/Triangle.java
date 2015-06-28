@@ -21,7 +21,7 @@ public class Triangle implements Surface {
 	double cY;
 	double cZ;
 	Vector3D d;
-	float[] origin;
+	Vector3D origin;
 	RGB color;
 	double reflectance;
 
@@ -60,7 +60,7 @@ public class Triangle implements Surface {
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSub1, float time) {
 		this.d = ((Vector3D) ray.getDistanceVector());
-		this.origin = ray.getOrigin();
+		this.origin = (Vector3D) ray.getOrigin();
 		Matrix matrixA = createMatrixA();
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);
@@ -93,9 +93,9 @@ public class Triangle implements Surface {
 
 	private Matrix createMatrixBeta() {
 		return new Matrix(new double[][] {
-				{ aX - origin[0], aX - cX, d.getX() },
-				{ aY - origin[1], aY - cY, d.getY() },
-				{ aZ - origin[2], aZ - cZ, d.getZ() } });
+				{ aX - this.origin.getX(), aX - cX, d.getX() },
+				{ aY - this.origin.getY(), aY - cY, d.getY() },
+				{ aZ - this.origin.getZ(), aZ - cZ, d.getZ() } });
 	}
 
 	private double getGamma(double determinantA) {
@@ -105,9 +105,9 @@ public class Triangle implements Surface {
 
 	private Matrix createMatrixGamma() {
 		return new Matrix(new double[][] {
-				{ aX - bX, aX - origin[0], d.getX() },
-				{ aY - bY, aY - origin[1], d.getY() },
-				{ aZ - bZ, aZ - origin[0], d.getZ() } });
+				{ aX - bX, aX - this.origin.getX(), d.getX() },
+				{ aY - bY, aY - this.origin.getY(), d.getY() },
+				{ aZ - bZ, aZ - this.origin.getZ(), d.getZ() } });
 	}
 
 	private double setT(double determinantA) {
@@ -117,14 +117,14 @@ public class Triangle implements Surface {
 
 	private Matrix createMatrixT() {
 		return new Matrix(new double[][] {
-				{ aX - bX, aX - cX, aX - origin[0] },
-				{ aY - bY, aY - cY, aY - origin[1] },
-				{ aZ - bZ, aZ - cZ, aZ - origin[2] } });
+				{ aX - bX, aX - cX, aX - this.origin.getX() },
+				{ aY - bY, aY - cY, aY - this.origin.getY() },
+				{ aZ - bZ, aZ - cZ, aZ - this.origin.getZ() } });
 	}
 
 	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
 		this.d = ((Vector3D) ray.getDistanceVector());
-		this.origin = ray.getOrigin();
+		this.origin = (Vector3D) ray.getOrigin();
 		Matrix matrixA = createMatrixA();
 		double determinantA = matrixA.det();
 		double beta = getBeta(determinantA);

@@ -6,7 +6,7 @@ public class Tests {
 		new Chapter2Image();
 		new Chapter3SecondEdImage();
 		new Chapter3Image();
-		new Chapter4Image();
+//		new Chapter4Image();
 	}
 
 }

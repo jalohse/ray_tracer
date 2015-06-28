@@ -5,7 +5,7 @@ import java.io.IOException;
 import me.jessicaalohse.raytracer.shapes.Sphere;
 import me.jessicaalohse.raytracer.utilities.Image;
 import me.jessicaalohse.raytracer.utilities.Light;
-import me.jessicaalohse.raytracer.utilities.PinholeCamera;
+import me.jessicaalohse.raytracer.utilities.Camera;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Vector3D;
 
@@ -21,10 +21,10 @@ public class Chapter4Image {
 		Vector3D viewUpVector = new Vector3D(0, 1, 0);
 		double[] a = new double[] { -2, -2 };
 		double[] b = new double[] { 2, 2 };
-		PinholeCamera camera = new PinholeCamera(eyePoint, gazeVector,
-				viewUpVector, 2, a, b);
-		camera.setDimensions(rowsColumns, rowsColumns);
-		image.addCamera(camera);
+//		Camera camera = new Camera(eyePoint, gazeVector,
+//				viewUpVector, 2, a, b);
+//		camera.setDimensions(rowsColumns, rowsColumns);
+//		image.addCamera(camera);
 
 		Sphere sphere = new Sphere(0, 0, 0, (float) Math.sqrt(2), new RGB(215,
 				215, 215), 0.9);
