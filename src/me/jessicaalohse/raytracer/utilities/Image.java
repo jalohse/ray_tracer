@@ -68,7 +68,7 @@ public class Image {
 			Vector3D origin = new Vector3D(i, j, 0);
 			return new Ray(origin, new Vector3D(0, 0, -1));
 		} else {
-			return this.camera.getRay(i, j, 5, 5);
+			return this.camera.getRay(i, j, rows, columns);
 		}
 	}
 
