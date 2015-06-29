@@ -81,9 +81,8 @@ public class Image {
 						.multiply(hitSurfaceColor);
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
-					return sphere.getColor();
-//					return sphere.getLitColor(multipliedLight,
-//							(Vector3D) ray.getOrigin(), light.getLightVector());
+					return sphere.getLitColor(multipliedLight,
+							(Vector3D) ray.getOrigin(), light.getLightVector());
 				} else {
 					Triangle triangle = (Triangle) hitSurface;
 					return triangle.getLitColor(multipliedLight,
