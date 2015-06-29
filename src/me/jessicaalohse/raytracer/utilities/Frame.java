@@ -2,20 +2,20 @@ package me.jessicaalohse.raytracer.utilities;
 
 public class Frame {
 	
-	OrthonormalBasis base;
-	double[] point = new double[3];
+	OrthonormalBasis uvw;
+	Vector3D origin;
 	
-	public Frame(OrthonormalBasis base, double[] point) {
-		this.base = base;
-		this.point = point;
+	public Frame(OrthonormalBasis uvw, Vector3D origin) {
+		this.uvw = uvw;
+		this.origin = origin;
 	}
 
-	public OrthonormalBasis getBase() {
-		return base;
+	public OrthonormalBasis getUVW() {
+		return uvw;
 	}
 
-	public double[] getPoint() {
-		return point;
+	public Vector3D getOrigin() {
+		return origin;
 	}
 	
 }
