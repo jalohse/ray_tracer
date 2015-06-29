@@ -2,7 +2,7 @@ package me.jessicaalohse.raytracer.utilities;
 
 public class Vector2D implements Vector {
 
-	float[] vector;
+	float[] vector = new float[2];
 
 	public Vector2D(float x, float y) {
 		vector[0] = x;
