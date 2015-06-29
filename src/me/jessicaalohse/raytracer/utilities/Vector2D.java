@@ -2,7 +2,7 @@ package me.jessicaalohse.raytracer.utilities;
 
 public class Vector2D implements Vector {
 
-	float[] vector;
+	float[] vector = new float[2];
 
 	public Vector2D(float x, float y) {
 		vector[0] = x;
@@ -44,9 +44,9 @@ public class Vector2D implements Vector {
 	}
 
 	public Vector scaleUp(double scale) {
-		this.setX((float) (getX() * scale));
-		this.setY((float) (getY() * scale));
-		return this;
+		float x = (float) (getX() * scale);
+		float y = (float) (getY() * scale);
+		return new Vector2D(x, y);
 	}
 
 	public void scaleDown(double scale) {

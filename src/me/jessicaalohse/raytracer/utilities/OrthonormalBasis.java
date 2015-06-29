@@ -5,9 +5,9 @@ public class OrthonormalBasis {
 	Vector3D w;
 	Vector3D v;
 
-	final Vector3D n = new Vector3D(1, 0, 0);
-	final Vector3D m = new Vector3D(0, 1, 0);
-	final double EPSILON = 0.01;
+	final static Vector3D n = new Vector3D(1, 0, 0);
+	final static Vector3D m = new Vector3D(0, 1, 0);
+	final static double EPSILON = 0.01;
 
 	public OrthonormalBasis() {
 
@@ -19,49 +19,49 @@ public class OrthonormalBasis {
 		this.w = w;
 	}
 
-	public OrthonormalBasis constructFromUV(Vector3D a, Vector3D b) {
+	public static OrthonormalBasis constructFromUV(Vector3D a, Vector3D b) {
 		Vector3D u = a.makeUnitVector();
 		Vector3D w = a.getCrossProduct(b).makeUnitVector();
 		Vector3D v = w.getCrossProduct(u);
 		return new OrthonormalBasis(u, v, w);
 	}
 
-	public OrthonormalBasis constructFromVU(Vector3D a, Vector3D b) {
+	public static OrthonormalBasis constructFromVU(Vector3D a, Vector3D b) {
 		Vector3D v = a.makeUnitVector();
 		Vector3D w = b.getCrossProduct(a).makeUnitVector();
 		Vector3D u = v.getCrossProduct(w);
 		return new OrthonormalBasis(u, v, w);
 	}
 
-	public OrthonormalBasis constructFromVW(Vector3D a, Vector3D b) {
+	public static OrthonormalBasis constructFromVW(Vector3D a, Vector3D b) {
 		Vector3D v = a.makeUnitVector();
 		Vector3D u = a.getCrossProduct(b).makeUnitVector();
 		Vector3D w = u.getCrossProduct(v);
 		return new OrthonormalBasis(u, v, w);
 	}
 
-	public OrthonormalBasis constructFromWV(Vector3D a, Vector3D b) {
+	public static OrthonormalBasis constructFromWV(Vector3D a, Vector3D b) {
 		Vector3D w = a.makeUnitVector();
 		Vector3D u = b.getCrossProduct(a).makeUnitVector();
 		Vector3D v = w.getCrossProduct(u);
 		return new OrthonormalBasis(u, v, w);
 	}
 
-	public OrthonormalBasis constructFromUW(Vector3D a, Vector3D b) {
+	public static OrthonormalBasis constructFromUW(Vector3D a, Vector3D b) {
 		Vector3D u = a.makeUnitVector();
 		Vector3D v = b.getCrossProduct(a).makeUnitVector();
 		Vector3D w = u.getCrossProduct(v);
 		return new OrthonormalBasis(u, v, w);
 	}
 
-	public OrthonormalBasis constructFromWU(Vector3D a, Vector3D b) {
+	public static OrthonormalBasis constructFromWU(Vector3D a, Vector3D b) {
 		Vector3D w = a.makeUnitVector();
 		Vector3D v = a.getCrossProduct(b).makeUnitVector();
 		Vector3D u = v.getCrossProduct(w);
 		return new OrthonormalBasis(u, v, w);
 	}
 
-	public OrthonormalBasis constructFromU(Vector3D a) {
+	public static OrthonormalBasis constructFromU(Vector3D a) {
 		Vector3D u = a.makeUnitVector();
 		Vector3D v = u.getCrossProduct(n);
 		if (v.getLengthSquared() < EPSILON) {
