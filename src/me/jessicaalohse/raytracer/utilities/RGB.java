@@ -16,6 +16,15 @@ public class RGB {
 		this.green = green;
 		this.blue = blue;
 	}
+	
+	private void clamp() {
+		if (red > 255) red = 255;
+		if (green > 255) green = 255;
+		if (blue > 255) blue = 255;
+		if (red < 0) red = 0;
+		if (green < 0) green = 0;
+		if (blue < 0) blue = 0;
+	}
 
 	public void makePositive() {
 		this.setRed(Math.abs(this.red));
@@ -42,19 +51,23 @@ public class RGB {
 			this.setGreen((int) (this.green * scale) / 255);
 			this.setBlue((int) (this.blue * scale) / 255);
 		}
+		clamp();
 	}
 
 	public void scaleDown(int scale) {
 		this.setRed(this.red / scale);
 		this.setGreen(this.green / scale);
 		this.setBlue(this.blue / scale);
+		clamp();
 	}
 
 	public RGB add(RGB b) {
 		int red = this.red + b.red;
 		int green = this.green + b.green;
 		int blue = this.blue + b.blue;
-		return new RGB(red, green, blue);
+		RGB newColor = new RGB(red, green, blue);
+		newColor.clamp();
+		return newColor;
 	}
 
 	public RGB subtract(RGB b) {
@@ -68,14 +81,18 @@ public class RGB {
 		int red = (this.red * b.red) / 255;
 		int green = (this.green * b.green) / 255;
 		int blue = (this.blue * b.blue) / 255;
-		return new RGB(red, green, blue);
+		RGB newColor = new RGB(red, green, blue);
+		newColor.clamp();
+		return newColor;
 	}
 
 	public RGB divide(RGB b) {
 		int red = this.red / b.red;
 		int green = this.green / b.green;
 		int blue = this.blue / b.blue;
-		return new RGB(red, green, blue);
+		RGB newColor = new RGB(red, green, blue);
+		newColor.clamp();
+		return newColor;
 	}
 
 	public RGB getByteForm() {
