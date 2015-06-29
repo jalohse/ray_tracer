@@ -53,7 +53,7 @@ public class Triangle implements Surface {
 
 	public RGB getLitColor(RGB lightMultiplied, Vector3D lightVector) {
 		float nDotL = getNormal().getDotProduct(lightVector);
-		lightMultiplied.scaleUp(nDotL);
+		lightMultiplied.multiply(nDotL);
 		return lightMultiplied;
 	}
 

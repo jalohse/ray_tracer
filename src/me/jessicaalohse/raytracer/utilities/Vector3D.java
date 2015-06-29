@@ -59,6 +59,13 @@ public class Vector3D implements Vector {
 		this.setY(getY() * -1);
 		this.setZ(getZ() * -1);
 	}
+	
+	public Vector multiply(double scale) {
+		float x = (float) (getX() * scale);
+		float y = (float) (getY() * scale);
+		float z = (float) (getZ() * scale);
+		return new Vector3D(x, y, z);
+	}
 
 	public Vector scaleUp(double scale) {
 		float x = (float) (getX() * scale);
