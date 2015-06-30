@@ -27,23 +27,28 @@ public class Image {
 		this.image = new RGB[rows][columns];
 	}
 
-	public void addSurface(Surface surface) {
+	public void addSurface(Surface surface)
+	{
 		surfaces.add(surface);
 	}
 
-	public void addLight(Light light) {
+	public void addLight(Light light)
+	{
 		this.light = light;
 	}
 
-	public void addCamera(Camera camera) {
+	public void addCamera(Camera camera)
+	{
 		this.camera = camera;
 	}
 
-	public void addAmbientLight(float ambience) {
+	public void addAmbientLight(float ambience)
+	{
 		this.ambience = ambience;
 	}
 
-	public void createImage() {
+	public void createImage()
+	{
 		RGB[][] pixels = new RGB[this.rows][this.columns];
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
@@ -58,12 +63,14 @@ public class Image {
 		populateImage(pixels);
 	}
 
-	private RGB getAmbientBlack() {
+	private RGB getAmbientBlack()
+	{
 		int ambientBlack = (int) (0 + (this.ambience * 255));
 		return new RGB(ambientBlack, ambientBlack, ambientBlack);
 	}
 
-	private Ray createRay(int i, int j) {
+	private Ray createRay(int i, int j)
+	{
 		if (this.camera == null) {
 			Vector3D origin = new Vector3D(i, j, 0);
 			return new Ray(origin, new Vector3D(0, 0, -1));
@@ -72,31 +79,37 @@ public class Image {
 		}
 	}
 
-	public RGB getHitColor(Ray ray) {
+	public RGB getHitColor(Ray ray)
+	{
 		Surface hitSurface = this.surfaces.getPrim();
-		RGB hitSurfaceColor = this.getAdjustedColor(hitSurface);
+		RGB hitSurfaceColor = getAdjustedColor(hitSurface);
 		if (this.light != null) {
-			if (!isHitByShadowRay(ray, hitSurface)) {
+			if (isHitByShadowRay(ray, hitSurface)) {
+				return getAmbientBlack();
+			} else {
 				RGB multipliedLight = light.getColor()
 						.multiply(hitSurfaceColor);
+				Vector3D hitPoint = (Vector3D) ray
+						.pointAtParameter(this.surfaces.getT());
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
-					return sphere.getLitColor(multipliedLight,
-							(Vector3D) ray.getOrigin(), light.getLightVector());
-				} else {
-					Triangle triangle = (Triangle) hitSurface;
-					return triangle.getLitColor(multipliedLight,
+					return sphere.getLitColor(multipliedLight, hitPoint,
 							light.getLightVector());
+				} else if (hitSurface instanceof Triangle) {
+					Triangle tri = (Triangle) hitSurface;
+					return tri.getLitColor(multipliedLight,
+							light.getLightVector());
+				} else {
+					return getAmbientBlack();
 				}
-			} else {
-				return getAmbientBlack();
 			}
 		} else {
 			return hitSurfaceColor;
 		}
 	}
 
-	private RGB getAdjustedColor(Surface hitSurface) {
+	private RGB getAdjustedColor(Surface hitSurface)
+	{
 		RGB original = hitSurface.getColor();
 		if (this.ambience != 0) {
 			float adjustment = this.ambience * 255;
@@ -112,7 +125,8 @@ public class Image {
 
 	}
 
-	private RGB addReflectance(int[] rgb, Surface hitSurface) {
+	private RGB addReflectance(int[] rgb, Surface hitSurface)
+	{
 		double reflectance = hitSurface.getReflectance();
 		if (reflectance != 0) {
 			return new RGB((int) (rgb[0] * reflectance),
@@ -122,14 +136,16 @@ public class Image {
 		}
 	}
 
-	private boolean isHitByShadowRay(Ray ray, Surface hitSurface) {
+	private boolean isHitByShadowRay(Ray ray, Surface hitSurface)
+	{
 		Vector3D originOfShadowRay = (Vector3D) ray.pointAtParameter(hitSurface
 				.getT());
 		Ray shadowRay = new Ray(originOfShadowRay, light.getLightVector());
 		return this.surfaces.hit(shadowRay, 0.001, Integer.MAX_VALUE, 0);
 	}
 
-	public void populateImage(RGB[][] pixels) {
+	public void populateImage(RGB[][] pixels)
+	{
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				image[i][j] = pixels[i][j];
@@ -137,7 +153,8 @@ public class Image {
 		}
 	}
 
-	public void printImage(String imageName) throws IOException {
+	public void printImage(String imageName) throws IOException
+	{
 		BufferedImage img = new BufferedImage(rows, columns,
 				BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < rows; i++) {
@@ -156,7 +173,8 @@ public class Image {
 		ImageIO.write(img, "PNG", file);
 	}
 
-	public void printImage() throws IOException {
+	public void printImage() throws IOException
+	{
 		this.printImage("");
 	}
 
