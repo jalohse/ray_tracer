@@ -83,14 +83,14 @@ public class Image {
 	{
 		Surface hitSurface = this.surfaces.getPrim();
 		RGB hitSurfaceColor = getAdjustedColor(hitSurface);
+		Vector3D hitPoint = (Vector3D) ray
+				.pointAtParameter(this.surfaces.getT());
 		if (this.light != null) {
 			if (isHitByShadowRay(ray, hitSurface)) {
 				return getAmbientBlack();
 			} else {
 				RGB multipliedLight = light.getColor()
 						.multiply(hitSurfaceColor);
-				Vector3D hitPoint = (Vector3D) ray
-						.pointAtParameter(this.surfaces.getT());
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
 					return sphere.getLitColor(multipliedLight, hitPoint,
