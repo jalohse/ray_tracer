@@ -11,7 +11,7 @@ public class Ray {
 	}
 
 	public Vector pointAtParameter(double t) {
-		return origin.add((Vector3D) distanceVector.multiply(t));
+		return origin.add((Vector3D) distanceVector.scaleUp(t));
 	}
 
 	@Override

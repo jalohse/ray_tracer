@@ -21,7 +21,9 @@ public class Sphere implements Surface {
 	}
 
 	public Vector3D getNormalForPoint(Vector3D point) {
-		return point.subtract(origin).makeUnitVector();
+		Vector3D normal = point.subtract(origin);
+		normal.scaleDown(radius);
+		return normal;
 	}
 
 	public float getNDotL(Vector3D point, Vector3D lightVector) {
