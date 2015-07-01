@@ -46,8 +46,7 @@ public class Vector3D implements Vector {
 
 	public Vector3D makeUnitVector() {
 		Vector3D newVector = new Vector3D(this.getX(), this.getY(), this.getZ());
-		newVector.scaleDown(newVector.getLength());
-		return newVector;
+		return newVector.scaleDown(newVector.getLength());
 	}
 
 	public void makePositive() {
