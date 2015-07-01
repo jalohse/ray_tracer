@@ -17,8 +17,7 @@ public class RGB {
 		this.blue = blue;
 	}
 
-	private void clamp()
-	{
+	private void clamp() {
 		if (red > 255)
 			red = 255;
 		if (green > 255)
@@ -33,30 +32,36 @@ public class RGB {
 			blue = 0;
 	}
 
-	public void makePositive()
-	{
+	public void makePositive() {
 		this.setRed(Math.abs(this.red));
 		this.setGreen((this.green));
 		this.setRed(Math.abs(this.blue));
 	}
 
-	public void makeNegative()
-	{
+	public void makeNegative() {
 		this.setRed(this.red * -1);
 		this.setGreen(this.green * -1);
 		this.setBlue(this.blue * -1);
 	}
 
-	public void multiply(float scale)
-	{
-		this.setRed((int) (this.red * scale));
-		this.setGreen((int) (this.green * scale));
-		this.setBlue((int) (this.blue * scale));
-		clamp();
+	public RGB multiplyByScalar(float scale) {
+		RGB newColor;
+		if (scale < 0) {
+			int red = (int) (this.red * scale);
+			int green = (int) (this.green * scale);
+			int blue = (int) (this.blue * scale);
+			newColor = new RGB(red, green, blue);
+		} else {
+			int red = (int) ((this.red * scale) / 255);
+			int green = (int) ((this.green * scale) / 255);
+			int blue = (int) ((this.blue * scale) / 255);
+			newColor = new RGB(red, green, blue);
+		}
+		newColor.clamp();
+		return newColor;
 	}
 
-	public RGB add(RGB b)
-	{
+	public RGB add(RGB b) {
 		int red = this.red + b.red;
 		int green = this.green + b.green;
 		int blue = this.blue + b.blue;
@@ -65,16 +70,14 @@ public class RGB {
 		return newColor;
 	}
 
-	public RGB subtract(RGB b)
-	{
+	public RGB subtract(RGB b) {
 		int red = this.red - b.red;
 		int green = this.green - b.green;
 		int blue = this.blue - b.blue;
 		return new RGB(red, green, blue);
 	}
 
-	public RGB multiply(RGB b)
-	{
+	public RGB multiply(RGB b) {
 		int red = (this.red * b.red) / 255;
 		int green = (this.green * b.green) / 255;
 		int blue = (this.blue * b.blue) / 255;
@@ -83,8 +86,7 @@ public class RGB {
 		return newColor;
 	}
 
-	public RGB divide(RGB b)
-	{
+	public RGB divide(RGB b) {
 		int red = this.red / b.red;
 		int green = this.green / b.green;
 		int blue = this.blue / b.blue;
@@ -93,16 +95,14 @@ public class RGB {
 		return newColor;
 	}
 
-	public RGB getByteForm()
-	{
+	public RGB getByteForm() {
 		int red = colorToByte(this.red);
 		int green = colorToByte(this.green);
 		int blue = colorToByte(this.blue);
 		return new RGB(red, green, blue);
 	}
 
-	private int colorToByte(int color)
-	{
+	private int colorToByte(int color) {
 		int i = (int) (BYTE_MULTIPLICATION * Math.pow(color, 1 / MAC_GAMMA));
 		if (i > MAX_BYTE) {
 			return MAX_BYTE;
@@ -111,38 +111,31 @@ public class RGB {
 		}
 	}
 
-	public int getRed()
-	{
+	public int getRed() {
 		return red;
 	}
 
-	public void setRed(int red)
-	{
+	public void setRed(int red) {
 		this.red = red;
 	}
 
-	public int getGreen()
-	{
+	public int getGreen() {
 		return green;
 	}
 
-	public void setGreen(int green)
-	{
+	public void setGreen(int green) {
 		this.green = green;
 	}
 
-	public int getBlue()
-	{
+	public int getBlue() {
 		return blue;
 	}
 
-	public void setBlue(int blue)
-	{
+	public void setBlue(int blue) {
 		this.blue = blue;
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return String.format("[%d, %d, %d]", red, green, blue);
 	}
 

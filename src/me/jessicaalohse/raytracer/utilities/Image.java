@@ -27,28 +27,23 @@ public class Image {
 		this.image = new RGB[rows][columns];
 	}
 
-	public void addSurface(Surface surface)
-	{
+	public void addSurface(Surface surface) {
 		surfaces.add(surface);
 	}
 
-	public void addLight(Light light)
-	{
+	public void addLight(Light light) {
 		this.light = light;
 	}
 
-	public void addCamera(Camera camera)
-	{
+	public void addCamera(Camera camera) {
 		this.camera = camera;
 	}
 
-	public void addAmbientLight(float ambience)
-	{
+	public void addAmbientLight(float ambience) {
 		this.ambience = ambience;
 	}
 
-	public void createImage()
-	{
+	public void createImage() {
 		RGB[][] pixels = new RGB[this.rows][this.columns];
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
@@ -63,14 +58,12 @@ public class Image {
 		populateImage(pixels);
 	}
 
-	private RGB getAmbientBlack()
-	{
+	private RGB getAmbientBlack() {
 		int ambientBlack = (int) (0 + (this.ambience * 255));
 		return new RGB(ambientBlack, ambientBlack, ambientBlack);
 	}
 
-	private Ray createRay(int i, int j)
-	{
+	private Ray createRay(int i, int j) {
 		if (this.camera == null) {
 			Vector3D origin = new Vector3D(i, j, 0);
 			return new Ray(origin, new Vector3D(0, 0, -1));
@@ -79,73 +72,37 @@ public class Image {
 		}
 	}
 
-	public RGB getHitColor(Ray ray)
-	{
+	public RGB getHitColor(Ray ray) {
 		Surface hitSurface = this.surfaces.getPrim();
-		RGB hitSurfaceColor = getAdjustedColor(hitSurface);
-		Vector3D hitPoint = (Vector3D) ray
-				.pointAtParameter(this.surfaces.getT());
+		Vector3D hitPoint = (Vector3D) ray.pointAtParameter(this.surfaces
+				.getT());
 		if (this.light != null) {
 			if (isHitByShadowRay(ray, hitSurface)) {
 				return getAmbientBlack();
 			} else {
-				RGB multipliedLight = light.getColor()
-						.multiply(hitSurfaceColor);
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
-					return sphere.getLitColor(multipliedLight, hitPoint,
-							light.getLightVector());
+					return sphere.getLitColor(light, hitPoint, ambience);
 				} else if (hitSurface instanceof Triangle) {
 					Triangle tri = (Triangle) hitSurface;
-					return tri.getLitColor(multipliedLight,
-							light.getLightVector());
+					return tri.getLitColor(light, ambience);
 				} else {
 					return getAmbientBlack();
 				}
 			}
 		} else {
-			return hitSurfaceColor;
+			return hitSurface.getAmbientColor(ambience);
 		}
 	}
 
-	private RGB getAdjustedColor(Surface hitSurface)
-	{
-		RGB original = hitSurface.getColor();
-		if (this.ambience != 0) {
-			float adjustment = this.ambience * 255;
-			int red = (int) (original.getRed() + adjustment);
-			int green = (int) (original.getGreen() + adjustment);
-			int blue = (int) (original.getBlue() + adjustment);
-			return addReflectance(new int[] { red, green, blue }, hitSurface);
-		} else {
-			return addReflectance(
-					new int[] { original.getRed(), original.getGreen(),
-							original.getBlue() }, hitSurface);
-		}
-
-	}
-
-	private RGB addReflectance(int[] rgb, Surface hitSurface)
-	{
-		double reflectance = hitSurface.getReflectance();
-		if (reflectance != 0) {
-			return new RGB((int) (rgb[0] * reflectance),
-					(int) (rgb[1] * reflectance), (int) (rgb[2] * reflectance));
-		} else {
-			return new RGB(rgb[0], rgb[1], rgb[2]);
-		}
-	}
-
-	private boolean isHitByShadowRay(Ray ray, Surface hitSurface)
-	{
+	private boolean isHitByShadowRay(Ray ray, Surface hitSurface) {
 		Vector3D originOfShadowRay = (Vector3D) ray.pointAtParameter(hitSurface
 				.getT());
 		Ray shadowRay = new Ray(originOfShadowRay, light.getLightVector());
 		return this.surfaces.hit(shadowRay, 0.001, Integer.MAX_VALUE, 0);
 	}
 
-	public void populateImage(RGB[][] pixels)
-	{
+	public void populateImage(RGB[][] pixels) {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				image[i][j] = pixels[i][j];
@@ -153,8 +110,7 @@ public class Image {
 		}
 	}
 
-	public void printImage(String imageName) throws IOException
-	{
+	public void printImage(String imageName) throws IOException {
 		BufferedImage img = new BufferedImage(rows, columns,
 				BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < rows; i++) {
@@ -173,8 +129,7 @@ public class Image {
 		ImageIO.write(img, "PNG", file);
 	}
 
-	public void printImage() throws IOException
-	{
+	public void printImage() throws IOException {
 		this.printImage("");
 	}
 

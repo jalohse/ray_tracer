@@ -1,5 +1,6 @@
 package me.jessicaalohse.raytracer.shapes;
 
+import me.jessicaalohse.raytracer.utilities.Light;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Ray;
 import me.jessicaalohse.raytracer.utilities.Vector3D;
@@ -23,10 +24,10 @@ public class Triangle implements Surface {
 	Vector3D d;
 	Vector3D origin;
 	RGB color;
-	double reflectance;
+	float reflectance;
 
 	public Triangle(double[] a, double[] b, double[] c, RGB color,
-			double reflectance) {
+			float reflectance) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -51,10 +52,42 @@ public class Triangle implements Surface {
 		return p1Minusp0.multiply(p2Minusp0);
 	}
 
-	public RGB getLitColor(RGB lightMultiplied, Vector3D lightVector) {
-		float nDotL = getNormal().getDotProduct(lightVector);
-		lightMultiplied.multiply(nDotL);
-		return lightMultiplied;
+	public RGB getLitColor(Light light, float ambience) {
+		float nDotL = getNormal().getDotProduct(light.getLightVector());
+		if (ambience == 0) {
+			RGB multipliedLight = light.getColor().multiply(
+					getAmbientColor(ambience));
+			multipliedLight.multiplyByScalar(nDotL);
+			return multipliedLight;
+		} else {
+			int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
+			return new RGB(color, color, color);
+		}
+	}
+
+	@Override
+	public RGB getAmbientColor(float ambience) {
+		RGB original = getColor();
+		if (ambience == 0) {
+			return addReflectance(new int[] { original.getRed(),
+					original.getGreen(), original.getBlue() });
+		} else {
+			float adjustment = ambience * 255;
+			int red = (int) (original.getRed() + adjustment);
+			int green = (int) (original.getGreen() + adjustment);
+			int blue = (int) (original.getBlue() + adjustment);
+			return addReflectance(new int[] { red, green, blue });
+		}
+	}
+
+	private RGB addReflectance(int[] rgb) {
+		double reflectance = getReflectance();
+		if (reflectance == 0) {
+			return new RGB(rgb[0], rgb[1], rgb[2]);
+		} else {
+			return new RGB((int) (rgb[0] * reflectance),
+					(int) (rgb[1] * reflectance), (int) (rgb[2] * reflectance));
+		}
 	}
 
 	@Override
@@ -148,7 +181,7 @@ public class Triangle implements Surface {
 		return color;
 	}
 
-	public double getReflectance() {
+	public float getReflectance() {
 		return this.reflectance;
 	}
 }

@@ -27,7 +27,7 @@ public class Chapter4Image {
 		image.addCamera(camera);
 
 		Sphere sphere = new Sphere(0, 0, 0, (float) Math.sqrt(2), new RGB(215,
-				215, 215), 0.9);
+				215, 215), 0.9f);
 		image.addSurface(sphere);
 
 		Light light = new Light(new Vector3D(0, 1, 0), new RGB(255, 255, 255));
