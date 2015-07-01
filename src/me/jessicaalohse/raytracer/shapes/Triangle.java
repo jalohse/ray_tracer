@@ -1,5 +1,6 @@
 package me.jessicaalohse.raytracer.shapes;
 
+import me.jessicaalohse.raytracer.utilities.Light;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Ray;
 import me.jessicaalohse.raytracer.utilities.Vector3D;
@@ -51,10 +52,36 @@ public class Triangle implements Surface {
 		return p1Minusp0.multiply(p2Minusp0);
 	}
 
-	public RGB getLitColor(RGB lightMultiplied, Vector3D lightVector) {
-		float nDotL = getNormal().getDotProduct(lightVector);
-		lightMultiplied.multiply(nDotL);
-		return lightMultiplied;
+	public RGB getLitColor(Light light, RGB ambientColor) {
+		RGB multipliedLight = light.getColor().multiply(ambientColor);
+		float nDotL = getNormal().getDotProduct(light.getLightVector());
+		multipliedLight.multiply(nDotL);
+		return multipliedLight;
+	}
+
+	@Override
+	public RGB getAmbientColor(float ambience) {
+		RGB original = getColor();
+		if (ambience != 0) {
+			float adjustment = ambience * 255;
+			int red = (int) (original.getRed() + adjustment);
+			int green = (int) (original.getGreen() + adjustment);
+			int blue = (int) (original.getBlue() + adjustment);
+			return addReflectance(new int[] { red, green, blue });
+		} else {
+			return addReflectance(new int[] { original.getRed(),
+					original.getGreen(), original.getBlue() });
+		}
+	}
+
+	private RGB addReflectance(int[] rgb) {
+		double reflectance = getReflectance();
+		if (reflectance != 0) {
+			return new RGB((int) (rgb[0] * reflectance),
+					(int) (rgb[1] * reflectance), (int) (rgb[2] * reflectance));
+		} else {
+			return new RGB(rgb[0], rgb[1], rgb[2]);
+		}
 	}
 
 	@Override

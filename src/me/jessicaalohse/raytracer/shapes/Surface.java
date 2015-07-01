@@ -10,6 +10,7 @@ public interface Surface {
 	public RGB getColor();
 	public double getReflectance();
 	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time);
+	public RGB getAmbientColor(float ambience);
 	
 
 }

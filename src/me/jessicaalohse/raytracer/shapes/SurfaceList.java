@@ -34,7 +34,7 @@ public class SurfaceList implements Surface {
 		}
 		return hitOne;
 	}
-	
+
 	@Override
 	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
 		return false;
@@ -57,6 +57,11 @@ public class SurfaceList implements Surface {
 	@Override
 	public double getReflectance() {
 		return prim.getReflectance();
+	}
+
+	@Override
+	public RGB getAmbientColor(float ambience) {
+		return prim.getAmbientColor(ambience);
 	}
 
 }
