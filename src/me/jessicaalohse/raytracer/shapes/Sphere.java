@@ -34,32 +34,39 @@ public class Sphere implements Surface {
 
 	public RGB getLitColor(Light light, Vector3D point, float ambience) {
 		float nDotL = getNDotL(point, light.getLightVector());
-		int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
-		return new RGB(color, color, color);
+		if (ambience == 0) {
+			RGB multipliedLight = light.getColor().multiply(
+					getAmbientColor(ambience));
+			multipliedLight.multiply(nDotL);
+			return multipliedLight;
+		} else {
+			int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
+			return new RGB(color, color, color);
+		}
 	}
 
 	public RGB getAmbientColor(float ambience) {
 		RGB original = getColor();
-		if (ambience != 0) {
+		if (ambience == 0) {
+			return addReflectance(new int[] { original.getRed(),
+					original.getGreen(), original.getBlue() });
+		} else {
 			float adjustment = ambience * 255;
 			int red = (int) (original.getRed() + adjustment);
 			int green = (int) (original.getGreen() + adjustment);
 			int blue = (int) (original.getBlue() + adjustment);
 			return addReflectance(new int[] { red, green, blue });
-		} else {
-			return addReflectance(new int[] { original.getRed(),
-					original.getGreen(), original.getBlue() });
 		}
 
 	}
 
 	private RGB addReflectance(int[] rgb) {
 		double reflectance = getReflectance();
-		if (reflectance != 0) {
+		if (reflectance == 0) {
+			return new RGB(rgb[0], rgb[1], rgb[2]);
+		} else {
 			return new RGB((int) (rgb[0] * reflectance),
 					(int) (rgb[1] * reflectance), (int) (rgb[2] * reflectance));
-		} else {
-			return new RGB(rgb[0], rgb[1], rgb[2]);
 		}
 	}
 
