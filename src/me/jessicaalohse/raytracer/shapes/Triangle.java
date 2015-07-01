@@ -24,10 +24,10 @@ public class Triangle implements Surface {
 	Vector3D d;
 	Vector3D origin;
 	RGB color;
-	double reflectance;
+	float reflectance;
 
 	public Triangle(double[] a, double[] b, double[] c, RGB color,
-			double reflectance) {
+			float reflectance) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -52,11 +52,10 @@ public class Triangle implements Surface {
 		return p1Minusp0.multiply(p2Minusp0);
 	}
 
-	public RGB getLitColor(Light light, RGB ambientColor) {
-		RGB multipliedLight = light.getColor().multiply(ambientColor);
+	public RGB getLitColor(Light light, float ambience) {
 		float nDotL = getNormal().getDotProduct(light.getLightVector());
-		multipliedLight.multiply(nDotL);
-		return multipliedLight;
+		int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
+		return new RGB(color, color, color);
 	}
 
 	@Override
@@ -175,7 +174,7 @@ public class Triangle implements Surface {
 		return color;
 	}
 
-	public double getReflectance() {
+	public float getReflectance() {
 		return this.reflectance;
 	}
 }

@@ -74,7 +74,6 @@ public class Image {
 
 	public RGB getHitColor(Ray ray) {
 		Surface hitSurface = this.surfaces.getPrim();
-		RGB hitSurfaceColor = hitSurface.getAmbientColor(this.ambience);
 		Vector3D hitPoint = (Vector3D) ray.pointAtParameter(this.surfaces
 				.getT());
 		if (this.light != null) {
@@ -83,16 +82,16 @@ public class Image {
 			} else {
 				if (hitSurface instanceof Sphere) {
 					Sphere sphere = (Sphere) hitSurface;
-					return sphere.getLitColor(light, hitSurfaceColor, hitPoint);
+					return sphere.getLitColor(light, hitPoint, ambience);
 				} else if (hitSurface instanceof Triangle) {
 					Triangle tri = (Triangle) hitSurface;
-					return tri.getLitColor(light, hitSurfaceColor);
+					return tri.getLitColor(light, ambience);
 				} else {
 					return getAmbientBlack();
 				}
 			}
 		} else {
-			return hitSurfaceColor;
+			return hitSurface.getAmbientColor(ambience);
 		}
 	}
 

@@ -55,7 +55,7 @@ public class SurfaceList implements Surface {
 	}
 
 	@Override
-	public double getReflectance() {
+	public float getReflectance() {
 		return prim.getReflectance();
 	}
 

@@ -11,10 +11,10 @@ public class Sphere implements Surface {
 	float radius;
 	double t;
 	RGB color;
-	double reflectance;
+	float reflectance;
 
 	public Sphere(float x, float y, float z, float radius, RGB color,
-			double reflectance) {
+			float reflectance) {
 		this.origin = new Vector3D(x, y, z);
 		this.radius = radius;
 		this.color = color;
@@ -32,11 +32,10 @@ public class Sphere implements Surface {
 		return normal.getDotProduct(lightVector);
 	}
 
-	public RGB getLitColor(Light light, RGB ambientColor, Vector3D point) {
-		RGB multipliedLight = light.getColor().multiply(ambientColor);
+	public RGB getLitColor(Light light, Vector3D point, float ambience) {
 		float nDotL = getNDotL(point, light.getLightVector());
-		multipliedLight.multiply(nDotL);
-		return multipliedLight;
+		int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
+		return new RGB(color, color, color);
 	}
 
 	public RGB getAmbientColor(float ambience) {
@@ -125,7 +124,7 @@ public class Sphere implements Surface {
 		return color;
 	}
 
-	public double getReflectance() {
+	public float getReflectance() {
 		return reflectance;
 	}
 
