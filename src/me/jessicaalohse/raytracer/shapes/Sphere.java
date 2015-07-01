@@ -37,7 +37,7 @@ public class Sphere implements Surface {
 		if (ambience == 0) {
 			RGB multipliedLight = light.getColor().multiply(
 					getAmbientColor(ambience));
-			multipliedLight.multiply(nDotL);
+			multipliedLight.multiplyByScalar(nDotL);
 			return multipliedLight;
 		} else {
 			int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
