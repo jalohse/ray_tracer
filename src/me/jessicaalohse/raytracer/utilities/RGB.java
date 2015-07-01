@@ -46,7 +46,7 @@ public class RGB {
 
 	public RGB multiplyByScalar(float scale) {
 		RGB newColor;
-		if (scale < 0) {
+		if (scale < 1) {
 			int red = (int) (this.red * scale);
 			int green = (int) (this.green * scale);
 			int blue = (int) (this.blue * scale);
