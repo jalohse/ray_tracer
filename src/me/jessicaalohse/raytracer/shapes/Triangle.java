@@ -57,8 +57,7 @@ public class Triangle implements Surface {
 		if (ambience == 0) {
 			RGB multipliedLight = light.getColor().multiply(
 					getAmbientColor(ambience));
-			multipliedLight.multiplyByScalar(nDotL);
-			return multipliedLight;
+			return multipliedLight.multiplyByScalar(nDotL);
 		} else {
 			int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
 			return new RGB(color, color, color);
