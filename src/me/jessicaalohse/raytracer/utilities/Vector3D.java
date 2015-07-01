@@ -1,5 +1,7 @@
 package me.jessicaalohse.raytracer.utilities;
 
+import java.util.Arrays;
+
 public class Vector3D implements Vector {
 
 	float[] vector = new float[3];
@@ -120,6 +122,12 @@ public class Vector3D implements Vector {
 		float y = getZ() * b.getX() - getX() * b.getZ();
 		float z = getX() * b.getY() - getY() * b.getX();
 		return new Vector3D(x, y, z);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Vector3D [vector=" + Arrays.toString(vector) + "]";
 	}
 
 }
