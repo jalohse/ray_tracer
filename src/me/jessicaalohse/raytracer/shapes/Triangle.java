@@ -1,5 +1,6 @@
 package me.jessicaalohse.raytracer.shapes;
 
+import me.jessicaalohse.raytracer.textures.Texture;
 import me.jessicaalohse.raytracer.utilities.Light;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Ray;
@@ -25,6 +26,7 @@ public class Triangle implements Surface {
 	Vector3D origin;
 	RGB color;
 	float reflectance;
+	Texture texture;
 
 	public Triangle(double[] a, double[] b, double[] c, RGB color,
 			float reflectance) {
@@ -44,6 +46,10 @@ public class Triangle implements Surface {
 		this.reflectance = reflectance;
 	}
 
+	public void addTexture(Texture texture) {
+		this.texture = texture;
+	}
+
 	public Vector3D getNormal() {
 		Vector3D p1Minusp0 = new Vector3D((float) (this.aX - this.cX),
 				(float) (this.aY - this.cY), (float) (this.aZ - this.cZ));
@@ -55,8 +61,10 @@ public class Triangle implements Surface {
 	public RGB getLitColor(Light light, float ambience) {
 		float nDotL = getNormal().getDotProduct(light.getLightVector());
 		if (ambience == 0) {
+			//TODO implement hitpoint here
+			
 			RGB multipliedLight = light.getColor().multiply(
-					getAmbientColor(ambience));
+					getAmbientColor(ambience, new Vector3D(1,1,1)));
 			return multipliedLight.multiplyByScalar(nDotL);
 		} else {
 			int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
@@ -65,7 +73,7 @@ public class Triangle implements Surface {
 	}
 
 	@Override
-	public RGB getAmbientColor(float ambience) {
+	public RGB getAmbientColor(float ambience, Vector3D hitPoint) {
 		RGB original = getColor();
 		if (ambience == 0) {
 			return addReflectance(new int[] { original.getRed(),
@@ -182,5 +190,10 @@ public class Triangle implements Surface {
 
 	public float getReflectance() {
 		return this.reflectance;
+	}
+
+	@Override
+	public Texture getTexture() {
+		return this.texture;
 	}
 }

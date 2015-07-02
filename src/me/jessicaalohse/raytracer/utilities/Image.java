@@ -91,7 +91,7 @@ public class Image {
 				}
 			}
 		} else {
-			return hitSurface.getAmbientColor(ambience);
+			return hitSurface.getAmbientColor(ambience, hitPoint);
 		}
 	}
 

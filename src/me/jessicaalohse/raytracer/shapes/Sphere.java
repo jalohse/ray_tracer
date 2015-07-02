@@ -1,5 +1,6 @@
 package me.jessicaalohse.raytracer.shapes;
 
+import me.jessicaalohse.raytracer.textures.Texture;
 import me.jessicaalohse.raytracer.utilities.Light;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Ray;
@@ -12,6 +13,7 @@ public class Sphere implements Surface {
 	double t;
 	RGB color;
 	float reflectance;
+	Texture texture;
 
 	public Sphere(float x, float y, float z, float radius, RGB color,
 			float reflectance) {
@@ -19,6 +21,10 @@ public class Sphere implements Surface {
 		this.radius = radius;
 		this.color = color;
 		this.reflectance = reflectance;
+	}
+
+	public void addTexture(Texture texture) {
+		this.texture = texture;
 	}
 
 	public Vector3D getNormalForPoint(Vector3D point) {
@@ -35,7 +41,7 @@ public class Sphere implements Surface {
 		float nDotL = getNDotL(point, light.getLightVector());
 		if (ambience == 0) {
 			RGB multipliedLight = light.getColor().multiply(
-					getAmbientColor(ambience));
+					getAmbientColor(ambience, point));
 			return multipliedLight.multiplyByScalar(nDotL);
 		} else {
 			int color = (int) ((ambience + (getReflectance() * nDotL)) * 255);
@@ -43,28 +49,18 @@ public class Sphere implements Surface {
 		}
 	}
 
-	public RGB getAmbientColor(float ambience) {
+	public RGB getAmbientColor(float ambience, Vector3D hitPoint) {
 		RGB original = getColor();
-		if (ambience == 0) {
-			return addReflectance(new int[] { original.getRed(),
-					original.getGreen(), original.getBlue() });
-		} else {
-			float adjustment = ambience * 255;
-			int red = (int) (original.getRed() + adjustment);
-			int green = (int) (original.getGreen() + adjustment);
-			int blue = (int) (original.getBlue() + adjustment);
-			return addReflectance(new int[] { red, green, blue });
-		}
-
-	}
-
-	private RGB addReflectance(int[] rgb) {
 		double reflectance = getReflectance();
+		if (texture != null) {
+			original = texture.getValue(null, hitPoint);
+		}
 		if (reflectance == 0) {
-			return new RGB(rgb[0], rgb[1], rgb[2]);
+			return original;
 		} else {
-			return new RGB((int) (rgb[0] * reflectance),
-					(int) (rgb[1] * reflectance), (int) (rgb[2] * reflectance));
+			return new RGB((int) (original.getRed() * reflectance),
+					(int) (original.getGreen() * reflectance),
+					(int) (original.getBlue() * reflectance));
 		}
 	}
 
@@ -131,6 +127,11 @@ public class Sphere implements Surface {
 
 	public float getReflectance() {
 		return reflectance;
+	}
+
+	@Override
+	public Texture getTexture() {
+		return texture;
 	}
 
 }

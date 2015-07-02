@@ -9,7 +9,7 @@ public class NoiseTexture implements Texture {
 	float scale;
 	RGB color1;
 	RGB color2;
-	SolidNoise solidNoise;
+	SolidNoise solidNoise = new SolidNoise();
 
 	public NoiseTexture() {
 		scale = 1;

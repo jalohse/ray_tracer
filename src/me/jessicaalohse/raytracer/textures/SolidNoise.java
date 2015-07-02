@@ -82,7 +82,7 @@ public class SolidNoise {
 			temp.setX(p.getX() * weight);
 			temp.setY(p.getY() * weight);
 			temp.setZ(p.getZ() * weight);
-			sum += Math.abs(getNoise(temp) / weight);
+			sum += Math.abs(getNoise(temp)) / weight;
 		}
 		return sum;
 	}

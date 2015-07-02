@@ -10,7 +10,7 @@ public class MarbleTexture implements Texture {
 	float scale;
 	int octaves;
 	RGB color0, color1, color2;
-	SolidNoise noise;
+	SolidNoise noise = new SolidNoise();
 
 	public MarbleTexture(float stripesPerUnit, float scale, int octaves) {
 		frequency = (float) (Math.PI * stripesPerUnit);
