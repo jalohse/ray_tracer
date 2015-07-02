@@ -44,11 +44,16 @@ public class SolidNoise {
 	}
 
 	private float getOmega(float t) {
-		if (t <= 0.0f) {
+		if (t < 0.0f) {
 			t = t * -1;
 		}
-		return (-6.0f * t * t * t * t * t + 15.0f * t * t * t * t - 10.0f * t
-				* t * t + 1.0f);
+		float num = (-6.0f * t * t * t * t * t + 15.0f * t * t * t * t - 10.0f
+				* t * t * t + 1.0f);
+		if (Float.isNaN(num)) {
+			return Float.MIN_VALUE;
+		} else {
+			return num;
+		}
 	}
 
 	private Vector3D getGamma(int i, int j, int k) {
@@ -60,8 +65,12 @@ public class SolidNoise {
 	}
 
 	private float getKnot(int i, int j, int k, Vector3D v) {
-		return getOmega(v.getX()) * getOmega(v.getY()) * getOmega(v.getZ())
-				* getGamma(i, j, k).getDotProduct(v);
+		float omegas = getOmega(v.getX()) * getOmega(v.getY())
+				* getOmega(v.getZ());
+		if (Float.isNaN(omegas)) {
+			omegas = Float.MIN_VALUE;
+		}
+		return omegas * getGamma(i, j, k).getDotProduct(v);
 	}
 
 	private int getIntGamma(int i, int j) {
@@ -98,7 +107,7 @@ public class SolidNoise {
 			temp.setX(p.getX() * weight);
 			temp.setY(p.getY() * weight);
 			temp.setZ(p.getZ() * weight);
-			sum += Math.abs(getNoise(temp)) / d;
+			sum += Math.abs(getNoise(temp)) / weight;
 		}
 		return sum;
 	}
