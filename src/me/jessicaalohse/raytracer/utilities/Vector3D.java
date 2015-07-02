@@ -61,7 +61,7 @@ public class Vector3D implements Vector {
 		this.setZ(getZ() * -1);
 	}
 
-	public Vector multiply(double scale) {
+	public Vector3D multiply(double scale) {
 		float x = (float) (getX() * scale);
 		float y = (float) (getY() * scale);
 		float z = (float) (getZ() * scale);
