@@ -4,8 +4,6 @@ import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class SolidNoise {
 
-	public static final float SOLID_NOISE = 1;
-
 	private Vector3D[] grad = new Vector3D[16];
 	private int[] phi = new int[16];
 
@@ -105,7 +103,7 @@ public class SolidNoise {
 		return sum;
 	}
 
-	private float getNoise(Vector3D temp) {
+	public float getNoise(Vector3D temp) {
 		int fi = (int) Math.floor(temp.getX());
 		int fj = (int) Math.floor(temp.getY());
 		int fk = (int) Math.floor(temp.getZ());
