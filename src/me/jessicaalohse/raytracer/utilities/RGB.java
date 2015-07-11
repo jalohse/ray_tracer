@@ -17,7 +17,7 @@ public class RGB {
 		this.blue = blue;
 	}
 
-	private void clamp() {
+	public void clamp() {
 		if (red > 255)
 			red = 255;
 		if (green > 255)

@@ -133,4 +133,14 @@ public class Image {
 		this.printImage("");
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	
+	
 }
