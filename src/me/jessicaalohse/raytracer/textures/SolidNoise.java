@@ -67,8 +67,10 @@ public class SolidNoise {
 	private float getKnot(int i, int j, int k, Vector3D v) {
 		float omegas = getOmega(v.getX()) * getOmega(v.getY())
 				* getOmega(v.getZ());
-		if (Float.isNaN(omegas)) {
+		if (Float.isNaN(omegas) || omegas < Float.MIN_VALUE) {
 			omegas = Float.MIN_VALUE;
+		} else if (omegas > Float.MAX_VALUE) {
+			omegas = 0.0f;
 		}
 		return omegas * getGamma(i, j, k).getDotProduct(v);
 	}
