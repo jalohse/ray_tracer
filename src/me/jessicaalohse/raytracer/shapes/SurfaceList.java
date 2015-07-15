@@ -3,8 +3,10 @@ package me.jessicaalohse.raytracer.shapes;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.jessicaalohse.raytracer.textures.Texture;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Ray;
+import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class SurfaceList implements Surface {
 
@@ -60,8 +62,13 @@ public class SurfaceList implements Surface {
 	}
 
 	@Override
-	public RGB getAmbientColor(float ambience) {
-		return prim.getAmbientColor(ambience);
+	public RGB getAmbientColor(float ambience, Vector3D hitPoint) {
+		return prim.getAmbientColor(ambience, hitPoint);
+	}
+
+	@Override
+	public Texture getTexture() {
+		return prim.getTexture();
 	}
 
 }

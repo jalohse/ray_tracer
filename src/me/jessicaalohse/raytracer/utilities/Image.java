@@ -91,7 +91,7 @@ public class Image {
 				}
 			}
 		} else {
-			return hitSurface.getAmbientColor(ambience);
+			return hitSurface.getAmbientColor(ambience, hitPoint);
 		}
 	}
 
@@ -133,4 +133,14 @@ public class Image {
 		this.printImage("");
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	
+	
 }
