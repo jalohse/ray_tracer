@@ -24,7 +24,7 @@ public class Image {
 	public Image(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
-		this.image = new RGB[rows][columns];
+		this.image = new RGB[columns][rows];
 	}
 
 	public void addSurface(Surface surface) {
@@ -44,7 +44,7 @@ public class Image {
 	}
 
 	public void createImage() {
-		RGB[][] pixels = new RGB[this.rows][this.columns];
+		RGB[][] pixels = new RGB[this.columns][this.rows];
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
 				Ray ray = this.createRay(i, j);
@@ -103,21 +103,19 @@ public class Image {
 	}
 
 	public void populateImage(RGB[][] pixels) {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				image[i][j] = pixels[i][j];
-			}
-		}
+		image = pixels;
 	}
 
 	public void printImage(String imageName) throws IOException {
-		BufferedImage img = new BufferedImage(rows, columns,
+		System.out.println(columns -1 );
+		BufferedImage img = new BufferedImage(columns, rows,
 				BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				RGB rgb = image[i][j];
 				int color = (rgb.red << 16) | (rgb.green << 8) | rgb.blue;
-				img.setRGB(i, j, color);
+				System.out.println(i + ", "+j);
+				img.setRGB(j, i, color);
 			}
 		}
 		File file;
