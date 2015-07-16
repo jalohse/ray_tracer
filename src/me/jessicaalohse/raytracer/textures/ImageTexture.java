@@ -30,13 +30,12 @@ public class ImageTexture implements Texture {
 
 	public RGB[][] getPixelsFromImage(BufferedImage image) {
 		RGB[][] pixels = new RGB[image.getHeight()][image.getWidth()];
-		final byte[] originalPixels = ((DataBufferByte) image.getRaster()
-				.getDataBuffer()).getData();
+		final byte[] originalPixels = ((DataBufferByte) image.getData().getDataBuffer()).getData();
 		int rows = 0;
 		int columns = 0;
 		for (int pixel = 0; pixel < originalPixels.length; pixel += 3) {
-			int r = ((originalPixels[pixel + 2] & 0xff) << 16);
-			int g = ((originalPixels[pixel + 1] & 0xff) << 8);
+			int r = ((originalPixels[pixel + 2] & 0xff));
+			int g = ((originalPixels[pixel + 1] & 0xff));
 			int b = (originalPixels[pixel] & 0xff);
 			RGB color = new RGB(r, g, b);
 			color.clamp();

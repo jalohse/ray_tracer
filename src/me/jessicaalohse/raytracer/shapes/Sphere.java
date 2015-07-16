@@ -67,14 +67,12 @@ public class Sphere implements Surface {
 	@Override
 	public boolean hit(Ray ray, double tSubZero, double tSubOne, float time) {
 		Vector3D d = ((Vector3D) ray.getDistanceVector());
-		Vector3D origin = (Vector3D) ray.getOrigin();
-		Vector3D originCenter = new Vector3D(
-				origin.getX() - this.origin.getX(), origin.getY()
-						- this.origin.getY(), origin.getZ()
-						- this.origin.getZ());
+		Vector3D originCenter = ray.getOrigin().subtract(origin);
+		
 		float a = d.getDotProduct(d);
 		float b = 2 * d.getDotProduct(originCenter);
 		float c = (float) (originCenter.getDotProduct(originCenter) - (radius * radius));
+		
 		float discriminant = b * b - 4 * a * c;
 		if (discriminant > 0) {
 			double sqrtd = Math.sqrt(discriminant);
@@ -93,15 +91,13 @@ public class Sphere implements Surface {
 
 	@Override
 	public boolean shadowHit(Ray ray, float tSubZero, float tSub1, float time) {
-		Vector3D d = ((Vector3D) ray.getDistanceVector());
-		Vector3D origin = (Vector3D) ray.getOrigin();
-		Vector3D originCenter = new Vector3D(
-				origin.getX() - this.origin.getX(), origin.getY()
-						- this.origin.getY(), origin.getZ()
-						- this.origin.getZ());
-		float a = d.getDotProduct(d);
-		float b = 2 * d.getDotProduct(originCenter);
-		float c = (float) (originCenter.getDotProduct(originCenter) - (radius * radius));
+		Vector3D direction = ((Vector3D) ray.getDistanceVector());
+		Vector3D temp = ray.getOrigin().subtract(origin);
+
+		float a = direction.getDotProduct(direction);
+		float b = 2 * direction.getDotProduct(temp);
+		float c = (float) (temp.getDotProduct(temp) - (radius * radius));
+		
 		float discriminant = b * b - 4 * a * c;
 		if (discriminant > 0) {
 			double sqrtd = Math.sqrt(discriminant);
