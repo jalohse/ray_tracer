@@ -107,14 +107,12 @@ public class Image {
 	}
 
 	public void printImage(String imageName) throws IOException {
-		System.out.println(columns -1 );
 		BufferedImage img = new BufferedImage(columns, rows,
 				BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				RGB rgb = image[i][j];
 				int color = (rgb.red << 16) | (rgb.green << 8) | rgb.blue;
-				System.out.println(i + ", "+j);
 				img.setRGB(j, i, color);
 			}
 		}
