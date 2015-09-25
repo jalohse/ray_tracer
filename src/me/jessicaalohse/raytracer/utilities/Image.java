@@ -15,7 +15,7 @@ public class Image {
 
 	int rows;
 	int columns;
-	RGB[][] image;
+	public RGB[][] image;
 	private SurfaceList surfaces = new SurfaceList();
 	private Light light;
 	private Camera camera;

@@ -22,7 +22,6 @@ public class ImageTexture implements Texture {
 			BufferedImage imageFile = ImageIO.read(imgFile);
 			this.image = new Image(imageFile.getHeight(), imageFile.getWidth());
 			this.image.populateImage(getPixelsFromImage(imageFile));
-			this.image.printImage("imagetest");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +43,7 @@ public class ImageTexture implements Texture {
 			if (columns == image.getWidth()) {
 				columns = 0;
 				rows++;
-				if(rows == image.getHeight()){
+				if (rows == image.getHeight()) {
 					break;
 				}
 			}
@@ -55,7 +54,18 @@ public class ImageTexture implements Texture {
 	public RGB getValue(Vector2D uv, Vector3D p) {
 		float u = uv.getX() - (int) uv.getX();
 		float v = uv.getY() - (int) uv.getY();
-		return new RGB(0, 0, 0);
+		u *= image.getRows() - 3;
+		v *= image.getColumns() - 3;
+		int iu = (int) u;
+		int iv = (int) v;
+		float tu = u - iu;
+		float tv = v - iv;
+		RGB[][] pixels = image.image;
+		RGB c = pixels[iu][iv].multiplyByScalar(1 - tu).multiplyByScalar(1 - tv)
+				.add(pixels[iu + 1][iv].multiplyByScalar(tu).multiplyByScalar(1 - tv))
+				.add(pixels[iu][iv + 1].multiplyByScalar(1 - tu).multiplyByScalar(tv))
+				.add(pixels[iu + 1][iv + 1].multiplyByScalar(tu).multiplyByScalar(tv));
+		return c;
 	}
 
 }
