@@ -45,20 +45,19 @@ public class RGB {
 	}
 
 	public RGB multiplyByScalar(float scale) {
-		RGB newColor;
-		if (scale < 1) {
-			int red = (int) (this.red * scale);
-			int green = (int) (this.green * scale);
-			int blue = (int) (this.blue * scale);
-			newColor = new RGB(red, green, blue);
-		} else {
-			int red = (int) ((this.red * scale) / 255);
-			int green = (int) ((this.green * scale) / 255);
-			int blue = (int) ((this.blue * scale) / 255);
-			newColor = new RGB(red, green, blue);
-		}
+		RGB newColor = new RGB(determineScaled(this.red, scale), determineScaled(this.green, scale),
+				determineScaled(this.blue, scale));
 		newColor.clamp();
 		return newColor;
+	}
+
+	private int determineScaled(int color, float scale) {
+		int scaled = (int) (color * scale);
+		if (scaled <= color) {
+			return scaled;
+		} else {
+			return scaled / 255;
+		}
 	}
 
 	public RGB add(RGB b) {

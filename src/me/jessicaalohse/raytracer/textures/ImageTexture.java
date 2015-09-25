@@ -61,10 +61,11 @@ public class ImageTexture implements Texture {
 		float tu = u - iu;
 		float tv = v - iv;
 		RGB[][] pixels = image.image;
-		RGB c = pixels[iu][iv].multiplyByScalar(1 - tu).multiplyByScalar(1 - tv)
-				.add(pixels[iu + 1][iv].multiplyByScalar(tu).multiplyByScalar(1 - tv))
-				.add(pixels[iu][iv + 1].multiplyByScalar(1 - tu).multiplyByScalar(tv))
-				.add(pixels[iu + 1][iv + 1].multiplyByScalar(tu).multiplyByScalar(tv));
+		RGB c1 = pixels[iu][iv].multiplyByScalar(1 - tu).multiplyByScalar(1 - tv);
+		RGB c2 = pixels[iu + 1][iv].multiplyByScalar(tu).multiplyByScalar(1 - tv);
+		RGB c3 = pixels[iu][iv + 1].multiplyByScalar(1 - tu).multiplyByScalar(tv);
+		RGB c4 = pixels[iu + 1][iv + 1].multiplyByScalar(tu).multiplyByScalar(tv);
+		RGB c = c1.add(c2).add(c3).add(c4);
 		return c;
 	}
 
