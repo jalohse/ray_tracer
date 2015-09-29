@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import me.jessicaalohse.raytracer.utilities.Image;
+import me.jessicaalohse.raytracer.images.Image;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Vector2D;
 import me.jessicaalohse.raytracer.utilities.Vector3D;

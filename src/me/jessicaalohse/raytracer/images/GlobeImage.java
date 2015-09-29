@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import me.jessicaalohse.raytracer.shapes.Sphere;
 import me.jessicaalohse.raytracer.textures.ImageTexture;
-import me.jessicaalohse.raytracer.utilities.Image;
 import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class GlobeImage {

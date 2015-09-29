@@ -7,9 +7,9 @@ public class RGB {
 	public static final double MAC_GAMMA = 1.8;
 	public static final double WINDOWS_GAMMA = 2.2;
 
-	int red;
-	int green;
-	int blue;
+	public int red;
+	public int green;
+	public int blue;
 
 	public RGB(int red, int green, int blue) {
 		this.red = red;
@@ -53,7 +53,7 @@ public class RGB {
 
 	private int determineScaled(int color, float scale) {
 		int scaled = (int) (color * scale);
-		if (scaled <= color) {
+		if (scaled <= MAX_BYTE) {
 			return scaled;
 		} else {
 			return scaled / 255;

@@ -1,4 +1,4 @@
-package me.jessicaalohse.raytracer.utilities;
+package me.jessicaalohse.raytracer.images;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,6 +10,11 @@ import me.jessicaalohse.raytracer.shapes.Sphere;
 import me.jessicaalohse.raytracer.shapes.Surface;
 import me.jessicaalohse.raytracer.shapes.SurfaceList;
 import me.jessicaalohse.raytracer.shapes.Triangle;
+import me.jessicaalohse.raytracer.utilities.Camera;
+import me.jessicaalohse.raytracer.utilities.Light;
+import me.jessicaalohse.raytracer.utilities.RGB;
+import me.jessicaalohse.raytracer.utilities.Ray;
+import me.jessicaalohse.raytracer.utilities.Vector3D;
 
 public class Image {
 

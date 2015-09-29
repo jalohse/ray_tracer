@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import me.jessicaalohse.raytracer.shapes.Sphere;
 import me.jessicaalohse.raytracer.shapes.Triangle;
-import me.jessicaalohse.raytracer.utilities.Image;
 import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class Chapter2Image {
