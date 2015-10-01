@@ -12,7 +12,7 @@ public class Chapter3Image {
 	public Chapter3Image() {
 
 		int rowsColumns = 101;
-
+		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		RGB lightGray = new RGB(215, 215, 215);
 		Sphere largeSphere = new Sphere(50, -80, -1000, 100, lightGray, 0);
@@ -25,6 +25,7 @@ public class Chapter3Image {
 		try {
 			image.printImage("Chapter3Image");
 			System.out.println("Created Chapter3Image.png");
+			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

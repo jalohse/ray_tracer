@@ -11,6 +11,7 @@ public class Chapter2Image {
 	int rowsColumns = 101;
 
 	public Chapter2Image() {
+		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		Sphere sphere = new Sphere(0, 0, -150, 100.1f, new RGB(215, 215, 215),
 				0);
@@ -23,6 +24,7 @@ public class Chapter2Image {
 		try {
 			image.printImage("Chapter2Image");
 			System.out.println("Created Chapter2Image.png");
+			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

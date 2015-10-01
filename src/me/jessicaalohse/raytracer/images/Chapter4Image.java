@@ -14,6 +14,7 @@ public class Chapter4Image {
 	int rowsColumns = 101;
 
 	public Chapter4Image() {
+		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 
 		Vector3D eyePoint = new Vector3D(0, 0, 2);
@@ -37,6 +38,7 @@ public class Chapter4Image {
 		try {
 			image.printImage("Chapter4Image");
 			System.out.println("Created Chapter4Image.png");
+			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

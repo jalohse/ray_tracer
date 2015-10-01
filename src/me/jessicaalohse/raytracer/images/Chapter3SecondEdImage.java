@@ -11,6 +11,7 @@ public class Chapter3SecondEdImage {
 	int rowsColumns = 500;
 
 	public Chapter3SecondEdImage() {
+		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		Sphere sphere = new Sphere(250, 250, -1000, 150, new RGB(0, 0, 255), 0);
 		Triangle triangle = new Triangle(new double[] { 300, 600, -800 },
@@ -22,6 +23,7 @@ public class Chapter3SecondEdImage {
 		try {
 			image.printImage("Chapter3SecondEdImage");
 			System.out.println("Created Chapter3SecondEdImage.png");
+			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
