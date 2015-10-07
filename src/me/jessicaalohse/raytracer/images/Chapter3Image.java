@@ -3,6 +3,7 @@ package me.jessicaalohse.raytracer.images;
 import java.io.IOException;
 
 import me.jessicaalohse.raytracer.shapes.Sphere;
+import me.jessicaalohse.raytracer.utilities.Image;
 import me.jessicaalohse.raytracer.utilities.Light;
 import me.jessicaalohse.raytracer.utilities.RGB;
 import me.jessicaalohse.raytracer.utilities.Vector3D;
