@@ -24,8 +24,8 @@ public class SnowImage {
 		Sphere rightEye = new Sphere(220, 270, 0, 10.0f, new RGB(50, 50, 50), 0);
 		image.addSurface(leftEye);
 		image.addSurface(rightEye);
-		Triangle nose = new Triangle(new double[] { 230, 240, 0 }, new double[] { 230, 260, 0 },
-				new double[] { 265, 250, 0 }, new RGB(255, 127, 0), 0);
+		Triangle nose = new Triangle(new double[] { 230, 250, 0 }, new double[] { 250, 250, 0 },
+				new double[] { 235, 310, 0 }, new RGB(255, 127, 0), 0);
 		image.addSurface(nose);
 		Sphere button1 = new Sphere(300, 250, 0, 5.0f, new RGB(50, 50, 50), 0);
 		Sphere button2 = new Sphere(320, 250, 0, 5.0f, new RGB(50, 50, 50), 0);
@@ -70,10 +70,17 @@ public class SnowImage {
 				new double[] { 300, 370, -102 }, new RGB(153, 102, 51), 0);
 		image.addSurface(trunkTwoLeft);
 		image.addSurface(trunkTwoRight);
+		Sphere slope = new Sphere(850, 400, -500, 600.0f, new RGB(245, 245, 245), 0);
+		Sphere sun = new Sphere(0, 0, 0, 100.0f, new RGB(255, 255, 0), 0);
+		Triangle sky = new Triangle(new double[] { -10, -10, -501 }, new double[] { 500, -10, -501 },
+				new double[] { -10, 2000, -501 }, new RGB(0, 128, 255), 0);
+		image.addSurface(slope);
+		image.addSurface(sun);
+		image.addSurface(sky);
 		image.createImage();
 		try {
-			image.printImage("TwentyOneObject");
-			System.out.println("Created TwentyOneObject.png");
+			image.printImage("SnowImage");
+			System.out.println("Created SnowImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -3,6 +3,7 @@ package me.jessicaalohse.raytracer.images;
 import me.jessicaalohse.raytracer.images.obj_tests.FifteenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.TenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.OneObjectImage;
+import me.jessicaalohse.raytracer.images.obj_tests.SnowImage;
 import me.jessicaalohse.raytracer.images.obj_tests.ThreeObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.TwentyOneObjectImage;
 
@@ -20,6 +21,7 @@ public class Tests {
 		new TenObjectImage();
 		new FifteenObjectImage();
 		new TwentyOneObjectImage();
+		new SnowImage();
 	}
 
 }

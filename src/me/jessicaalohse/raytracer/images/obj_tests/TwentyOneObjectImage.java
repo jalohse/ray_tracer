@@ -24,8 +24,8 @@ public class TwentyOneObjectImage {
 		Sphere rightEye = new Sphere(220, 270, 0, 10.0f, new RGB(50, 50, 50), 0);
 		image.addSurface(leftEye);
 		image.addSurface(rightEye);
-		Triangle nose = new Triangle(new double[] { 230, 240, 0 }, new double[] { 230, 260, 0 },
-				new double[] { 265, 250, 0 }, new RGB(255, 127, 0), 0);
+		Triangle nose = new Triangle(new double[] { 230, 250, 0 }, new double[] { 250, 250, 0 },
+				new double[] { 235, 310, 0 }, new RGB(255, 127, 0), 0);
 		image.addSurface(nose);
 		Sphere button1 = new Sphere(300, 250, 0, 5.0f, new RGB(50, 50, 50), 0);
 		Sphere button2 = new Sphere(320, 250, 0, 5.0f, new RGB(50, 50, 50), 0);
