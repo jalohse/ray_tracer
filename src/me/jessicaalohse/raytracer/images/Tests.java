@@ -1,17 +1,7 @@
 package me.jessicaalohse.raytracer.images;
 
-import me.jessicaalohse.raytracer.images.color_tests.BlackAndWhiteImage;
-import me.jessicaalohse.raytracer.images.color_tests.ColoredSphereImage;
-import me.jessicaalohse.raytracer.images.obj_tests.FifteenObjectImage;
-import me.jessicaalohse.raytracer.images.obj_tests.TenObjectImage;
-import me.jessicaalohse.raytracer.images.obj_tests.OneObjectImage;
-import me.jessicaalohse.raytracer.images.obj_tests.SnowImage;
-import me.jessicaalohse.raytracer.images.obj_tests.ThreeObjectImage;
-import me.jessicaalohse.raytracer.images.obj_tests.TwentyOneObjectImage;
-import me.jessicaalohse.raytracer.images.surface_test.SphereImage;
-import me.jessicaalohse.raytracer.images.surface_test.TriangleImage;
-import me.jessicaalohse.raytracer.images.surface_test.TwoSpheresImage;
-import me.jessicaalohse.raytracer.images.surface_test.TwoTrianglesImage;
+import me.jessicaalohse.raytracer.images.light_tests.NoLightImage;
+import me.jessicaalohse.raytracer.images.light_tests.OneLightImage;
 
 public class Tests {
 
@@ -36,10 +26,15 @@ public class Tests {
 		// new TriangleImage();
 		// new TwoSpheresImage();
 		// new TwoTrianglesImage();
-		
+
 		// COLOR TESTS
-//		new BlackAndWhiteImage();
-		new ColoredSphereImage();
+		// new BlackAndWhiteImage();
+		// new ColoredSphereImage();
+
+		// LIGHT TESTS
+		// new NoLightImage();
+		// new OneLightImage();
+
 	}
 
 }
