@@ -1,5 +1,7 @@
 package me.jessicaalohse.raytracer.images;
 
+import me.jessicaalohse.raytracer.images.color_tests.BlackAndWhiteImage;
+import me.jessicaalohse.raytracer.images.color_tests.ColoredSphereImage;
 import me.jessicaalohse.raytracer.images.obj_tests.FifteenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.TenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.OneObjectImage;
@@ -30,10 +32,14 @@ public class Tests {
 		// new SnowImage();
 
 		// SURFACE TESTS
-		new SphereImage();
-		new TriangleImage();
-		new TwoSpheresImage();
-		new TwoTrianglesImage();
+		// new SphereImage();
+		// new TriangleImage();
+		// new TwoSpheresImage();
+		// new TwoTrianglesImage();
+		
+		// COLOR TESTS
+//		new BlackAndWhiteImage();
+		new ColoredSphereImage();
 	}
 
 }
