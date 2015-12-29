@@ -22,8 +22,8 @@ public class OneLightImage {
 		image.addLight(light);
 		image.createImage();
 		try {
-			image.printImage("OneLightImage");
-			System.out.println("Created OneLightImage.png");
+			image.printImage("LTOneLightImage");
+			System.out.println("Created LTOneLightImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

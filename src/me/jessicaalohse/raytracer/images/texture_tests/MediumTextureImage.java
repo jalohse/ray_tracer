@@ -18,8 +18,8 @@ public class MediumTextureImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("MediumImage");
-			System.out.println("Created MediumImage.png");
+			image.printImage("TTMediumImage");
+			System.out.println("Created TTMediumImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

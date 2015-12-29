@@ -79,8 +79,8 @@ public class SnowImage {
 		image.addSurface(sky);
 		image.createImage();
 		try {
-			image.printImage("SnowImage");
-			System.out.println("Created SnowImage.png");
+			image.printImage("OTSnowImage");
+			System.out.println("Created OTSnowImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

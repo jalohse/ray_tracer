@@ -15,8 +15,8 @@ public class ColoredSphereImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("ColoredSphereImage");
-			System.out.println("Created ColoredSphereImage.png");
+			image.printImage("CTColoredSphereImage");
+			System.out.println("Created CTColoredSphereImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

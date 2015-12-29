@@ -18,8 +18,8 @@ public class NoLightImage {
 		image.addSurface(smallSphere);
 		image.createImage();
 		try {
-			image.printImage("NoLightImage");
-			System.out.println("Created NoLightImage.png");
+			image.printImage("LTNoLightImage");
+			System.out.println("Created LTNoLightImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

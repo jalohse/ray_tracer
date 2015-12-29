@@ -18,8 +18,8 @@ public class SmallTextureImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("SmallImage");
-			System.out.println("Created SmallImage.png");
+			image.printImage("TTSmallImage");
+			System.out.println("Created TTSmallImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

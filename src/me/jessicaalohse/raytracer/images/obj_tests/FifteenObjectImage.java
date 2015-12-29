@@ -56,8 +56,8 @@ public class FifteenObjectImage {
 		image.addSurface(trunkRight);
 		image.createImage();
 		try {
-			image.printImage("FifteenObject");
-			System.out.println("Created FifteenObject.png");
+			image.printImage("OTFifteenObject");
+			System.out.println("Created OTFifteenObject.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

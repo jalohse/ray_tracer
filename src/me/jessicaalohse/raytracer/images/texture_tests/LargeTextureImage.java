@@ -18,9 +18,9 @@ public class LargeTextureImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("LargeImage");
-			System.out.println("Created LargeImage.png");
-			System.out.printf("Printing took %d milliseconds.", System.currentTimeMillis() - start);
+			image.printImage("TTLargeImage");
+			System.out.println("Created TTLargeImage.png");
+			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

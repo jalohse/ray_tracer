@@ -19,8 +19,8 @@ public class TwoTrianglesImage {
 		image.addSurface(triangleTwo);
 		image.createImage();
 		try {
-			image.printImage("TwoTrianglesImage");
-			System.out.println("Created TwoTrianglesImage.png");
+			image.printImage("SuTTwoTrianglesImage");
+			System.out.println("Created SuTTwoTrianglesImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

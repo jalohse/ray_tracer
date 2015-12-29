@@ -12,6 +12,9 @@ import me.jessicaalohse.raytracer.images.obj_tests.SnowImage;
 import me.jessicaalohse.raytracer.images.obj_tests.TenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.ThreeObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.TwentyOneObjectImage;
+import me.jessicaalohse.raytracer.images.size_tests.LargeImage;
+import me.jessicaalohse.raytracer.images.size_tests.MediumImage;
+import me.jessicaalohse.raytracer.images.size_tests.SmallImage;
 import me.jessicaalohse.raytracer.images.surface_test.SphereImage;
 import me.jessicaalohse.raytracer.images.surface_test.TriangleImage;
 import me.jessicaalohse.raytracer.images.surface_test.TwoSpheresImage;
@@ -60,6 +63,11 @@ public class Tests {
 		new SmallTextureImage();
 		new MediumTextureImage();
 		new LargeTextureImage();
+		
+		// SIZE TESTS
+		new LargeImage();
+		new MediumImage();
+		new SmallImage();
 
 	}
 

@@ -18,8 +18,8 @@ public class OneObjectImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("OneObject");
-			System.out.println("Created OneObject.png");
+			image.printImage("OTOneObject");
+			System.out.println("Created OTOneObject.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

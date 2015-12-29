@@ -41,8 +41,8 @@ public class TenObjectImage {
 		image.addSurface(rightArm);
 		image.createImage();
 		try {
-			image.printImage("TenObject");
-			System.out.println("Created TenObject.png");
+			image.printImage("OTTenObject");
+			System.out.println("Created OTTenObject.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -72,8 +72,8 @@ public class TwentyOneObjectImage {
 		image.addSurface(trunkTwoRight);
 		image.createImage();
 		try {
-			image.printImage("TwentyOneObject");
-			System.out.println("Created TwentyOneObject.png");
+			image.printImage("OTTwentyOneObject");
+			System.out.println("Created OTTwentyOneObject.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

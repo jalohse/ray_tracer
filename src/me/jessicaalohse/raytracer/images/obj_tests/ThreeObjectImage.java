@@ -21,8 +21,8 @@ public class ThreeObjectImage {
 		image.addSurface(bottom);
 		image.createImage();
 		try {
-			image.printImage("ThreeObject");
-			System.out.println("Created ThreeObject.png");
+			image.printImage("OTThreeObject");
+			System.out.println("Created OTThreeObject.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

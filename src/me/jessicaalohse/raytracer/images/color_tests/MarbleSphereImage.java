@@ -17,8 +17,8 @@ public class MarbleSphereImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("MarbleSphereImage");
-			System.out.println("Created MarbleSphereImage.png");
+			image.printImage("CTMarbleSphereImage");
+			System.out.println("Created CTMarbleSphereImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();

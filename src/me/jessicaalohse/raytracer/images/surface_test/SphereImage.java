@@ -16,8 +16,8 @@ public class SphereImage {
 		image.addSurface(sphere);
 		image.createImage();
 		try {
-			image.printImage("SphereImage");
-			System.out.println("Created SphereImage.png");
+			image.printImage("SuTSphereImage");
+			System.out.println("Created SuTSphereImage.png");
 			System.out.printf("Printing took %d milliseconds.\n", System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			e.printStackTrace();
