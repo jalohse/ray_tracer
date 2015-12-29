@@ -1,7 +1,12 @@
 package me.jessicaalohse.raytracer.images;
 
+import javafx.scene.media.Media;
 import me.jessicaalohse.raytracer.images.light_tests.NoLightImage;
 import me.jessicaalohse.raytracer.images.light_tests.OneLightImage;
+import me.jessicaalohse.raytracer.images.texture_tests.LargeTextureImage;
+import me.jessicaalohse.raytracer.images.texture_tests.MediumTextureImage;
+import me.jessicaalohse.raytracer.images.texture_tests.SmallTextureImage;
+import me.jessicaalohse.raytracer.images.texture_tests.XSmallImage;
 
 public class Tests {
 
@@ -34,6 +39,12 @@ public class Tests {
 		// LIGHT TESTS
 		// new NoLightImage();
 		// new OneLightImage();
+		
+		// TEXTURE TESTS
+		new XSmallImage();
+		new SmallTextureImage();
+		new MediumTextureImage();
+		new LargeTextureImage();
 
 	}
 
