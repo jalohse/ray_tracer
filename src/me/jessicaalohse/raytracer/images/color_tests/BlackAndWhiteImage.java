@@ -8,7 +8,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class BlackAndWhiteImage {
 	public BlackAndWhiteImage() {
-		int rowsColumns = 501;
+		int rowsColumns = 500;
 		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		Sphere sphere = new Sphere(250, 250, 0, 100.0f, new RGB(255, 255, 255), 0);

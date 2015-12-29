@@ -9,7 +9,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class SnowImage {
 
-	public int rowsColumns = 501;
+	public int rowsColumns = 500;
 
 	public SnowImage() {
 		long start = System.currentTimeMillis();

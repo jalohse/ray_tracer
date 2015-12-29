@@ -9,7 +9,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class XSmallImage {
 public XSmallImage() {
-	int rowsColumns = 501;
+	int rowsColumns = 500;
 
 	long start = System.currentTimeMillis();
 	Image image = new Image(rowsColumns, rowsColumns);

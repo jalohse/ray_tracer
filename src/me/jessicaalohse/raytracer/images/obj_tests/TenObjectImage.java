@@ -9,7 +9,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class TenObjectImage {
 
-	int rowsColumns = 501;
+	int rowsColumns = 500;
 
 	public TenObjectImage() {
 		long start = System.currentTimeMillis();

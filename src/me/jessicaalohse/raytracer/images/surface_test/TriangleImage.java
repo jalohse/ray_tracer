@@ -9,7 +9,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 public class TriangleImage {
 
 	public TriangleImage() {
-		int rowsColumns = 501;
+		int rowsColumns = 500;
 		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		Triangle triangle = new Triangle(new double[] { 100, 100, 0 }, new double[] { 350, 100, 0 },

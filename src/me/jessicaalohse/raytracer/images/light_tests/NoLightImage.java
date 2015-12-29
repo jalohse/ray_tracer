@@ -8,7 +8,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class NoLightImage {
 	public NoLightImage() {
-		int rowsColumns = 501;
+		int rowsColumns = 500;
 		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		RGB lightGray = new RGB(215, 215, 215);

@@ -8,7 +8,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class ThreeObjectImage {
 
-	int rowsColumns = 501;
+	int rowsColumns = 500;
 
 	public ThreeObjectImage() {
 		long start = System.currentTimeMillis();

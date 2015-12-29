@@ -8,7 +8,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class TwoSpheresImage {
 	public TwoSpheresImage() {
-		int rowsColumns = 501;
+		int rowsColumns = 500;
 		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		Sphere sphereOne = new Sphere(150, 150, 0, 100.0f, new RGB(255, 255, 255), 0);

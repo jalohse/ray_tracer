@@ -8,7 +8,7 @@ import me.jessicaalohse.raytracer.utilities.RGB;
 
 public class TwoTrianglesImage {
 	public TwoTrianglesImage() {
-		int rowsColumns = 501;
+		int rowsColumns = 500;
 		long start = System.currentTimeMillis();
 		Image image = new Image(rowsColumns, rowsColumns);
 		Triangle triangleOne = new Triangle(new double[] { 100, 100, 0 }, new double[] { 350, 100, 0 },
