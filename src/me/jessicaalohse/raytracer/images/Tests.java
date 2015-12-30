@@ -6,10 +6,10 @@ import me.jessicaalohse.raytracer.images.color_tests.MarbleSphereImage;
 import me.jessicaalohse.raytracer.images.color_tests.NoiseSphereImage;
 import me.jessicaalohse.raytracer.images.light_tests.NoLightImage;
 import me.jessicaalohse.raytracer.images.light_tests.OneLightImage;
-import me.jessicaalohse.raytracer.images.obj_tests.FifteenObjectImage;
+import me.jessicaalohse.raytracer.images.obj_tests.SixteenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.OneObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.SnowImage;
-import me.jessicaalohse.raytracer.images.obj_tests.TenObjectImage;
+import me.jessicaalohse.raytracer.images.obj_tests.ElevenObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.ThreeObjectImage;
 import me.jessicaalohse.raytracer.images.obj_tests.TwentyOneObjectImage;
 import me.jessicaalohse.raytracer.images.size_tests.LargeImage;
@@ -37,8 +37,8 @@ public class Tests {
 		// OBJ TESTS
 		 new OneObjectImage();
 		 new ThreeObjectImage();
-		 new TenObjectImage();
-		 new FifteenObjectImage();
+		 new ElevenObjectImage();
+		 new SixteenObjectImage();
 		 new TwentyOneObjectImage();
 		 new SnowImage();
 
